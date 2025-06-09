@@ -5,7 +5,8 @@ class RecipesController < ApplicationController
 
   before_action :authenticate, except: [:show, :feed]
 
-  caches_page :show
+  # TODO: investigate caching (reinstate it)
+  # caches_page :show
 
   def index
     @recipes = Recipe.all.order(updated_at: :asc)

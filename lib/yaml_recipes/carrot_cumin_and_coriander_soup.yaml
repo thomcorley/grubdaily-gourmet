@@ -1,0 +1,28 @@
+title: Carrot, Cumin and Coriander Soup
+total_time: PT1H
+serves: 4
+makes:
+type: soup
+category: carrots
+tags: carrots, cumin, coriander, soup
+summary: This is a simple but rich soup, lightly spiced with cumin seeds and finished with fragrant coriander leaves
+
+introduction:
+  - "This is a really simple recipe, involving carrots and not much else. Unlike most soup recipes, there's no onion or garlic to provide a base, it's just carrots, olive oil and a few seasonings. Being such a pure and simple recipe, it's important to saute the carrots vigorously, almost to the point of caramelisation, in order to extract the maximum flavour from them. Slice them thinly at an angle to expose more surface area when cooking them – this will result in more flavour."
+
+first_ingredient_set:
+  INSERT_TITLE:
+    - 1 kg carrots
+    - 2 tsp cumin seeds
+    - 5 tbsp extra virgin olive oil
+    - 1 chicken stock cube
+    - sea salt
+    - 1 large bunch coriander
+    - 4 pinches ground cumin
+
+method_steps:
+  - "TODO: FINISH SETUP STEPS! Peel the carrots and finel slice at an angle. Caramelise in batches with the cumin seeds."
+  - "Add chicken stock and simmer for 20 minutes, or until tender."
+  - "Blend until smooth, add chopped coriander at the end."
+
+

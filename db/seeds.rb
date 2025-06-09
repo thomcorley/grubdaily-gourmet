@@ -1,9 +1,52 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# frozen_string_literal: true
+class RecipeSeeder
+  def self.seed
+    count = 0
+    Dir.glob("lib/yaml_recipes/*.yaml") do |yaml_filename|
+      filepath = Rails.root.join(yaml_filename)
+      yaml_file = File.read(filepath)
+
+      ActiveRecord::Base.transaction do
+        importer = RecipeImporter.new(yaml_file)
+        recipe_id = importer.save_recipe
+        importer.save_ingredients(recipe_id)
+        importer.save_method_steps(recipe_id)
+
+        recipe = Recipe.find(recipe_id)
+        recipe_image = "#{recipe.image_name}.jpg"
+
+        recipe.image.attach(
+          io: File.open("#{Rails.root.to_s}/app/assets/images/#{recipe.image_name}.jpg"),
+          filename: "#{recipe.image_name}.jpg"
+        )
+
+        recipe.save!
+
+        Recipe.update_all(published_at: Date.today)
+
+        count += 1
+        puts "Recipe created: #{yaml_filename}"
+      rescue Psych::SyntaxError => e
+        puts "Error parsing YAML file #{yaml_filename}. Message: #{e}"
+      rescue StandardError => e
+        puts "Recipe (#{yaml_filename}) could not be created: #{e}"
+      end
+    end
+
+    puts "Imported #{count} recipes"
+
+    puts "Attaching images to recipes..."
+
+    Recipe.all.each do |recipe|
+      recipe.image.attach(
+        io: File.open("#{Rails.root.to_s}/app/assets/images/#{recipe.image_name}.jpg"),
+        filename: "#{recipe.image_name}.jpg"
+      )
+      puts "Attached image for #{recipe.title}"
+    rescue StandardError
+      next
+    end
+  end
+end
+
+RecipeSeeder.seed if Rails.env == "development"

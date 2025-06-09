@@ -7,7 +7,7 @@ class IngredientEntry < ApplicationRecord
   has_one :ingredient_entry_recipe_source
   has_one :recipe, through: :ingredient_entry_recipe_source
 
-  alias_attribute :name, :ingredient
+  alias_method :name, :ingredient
 
   before_save :assign_ingredient
   before_save :assign_recipe
