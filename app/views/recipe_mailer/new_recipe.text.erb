@@ -1,0 +1,9 @@
+<%= @recipe.introduction_paragraphs.first.delete_suffix(".") %>
+https://www.grubdaily.com<%= @recipe.permalink %>
+
+Happy cooking and happy eating :)
+
+Tom
+
+PS. If you're not interested in these email updates, you can unsubscribe here:
+<%= delete_email_subscriber_url(id: @email_subscriber.id) %>

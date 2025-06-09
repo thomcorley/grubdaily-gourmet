@@ -1,0 +1,56 @@
+<header class="header clear">
+  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation" data-controller="navbar">
+      <div class="navbar-brand is-justify-content-space-between px-2">
+        <div class="blog-logo">
+          <a href="<%= root_path %>">
+            <%= render partial: 'shared/svg/grubdaily_logo', locals: { width: 200 } %>
+          </a>
+        </div>
+
+        <div class="is-flex">
+          <div class="nav-button-icon navbar-item navbar-burger">
+            <a href="<%= search_path %>" role="button" class="navbar-search" aria-label="menu" aria-expanded="false">
+              <img src="<%= asset_path('magnifying-glass-solid.svg') %>" title="Search for recipes and blog posts" alt="Search icon" width="50px">
+            </a>
+          </div>
+
+          <div class="nav-button-icon navbar-item navbar-burger">
+            <a id="nav-burger" role="button" class="navbar-item" aria-label="menu" aria-expanded="false" data-navbar-target="burger">
+              <img
+                class="open-menu-icon"
+                src="<%= asset_path('bars-solid.svg') %>"
+                title="Click for menu"
+                alt="Open menu icon"
+                width="20px"
+                data-navbar-target="openMenu"
+              >
+              <img
+                class="close-menu-icon is-hidden"
+                src="<%= asset_path('xmark-solid.svg') %>"
+                title="Click to close menu"
+                alt="Close menu icon"
+                width="20px"
+                data-navbar-target="closeMenu"
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="nav-menu" class="navbar-menu" data-navbar-target="menu">
+        <div class="navbar-start">
+          <%= link_to("Recipes", recipe_index_path, class: "navbar-item is-size-5-mobile") %>
+          <%= link_to("Blog Posts", blog_post_index_path, class: "navbar-item is-size-5-mobile") %>
+          <%= link_to("About", about_path, class: "navbar-item is-size-5-mobile") %>
+          <%= link_to("Search", search_path, class: "navbar-item is-size-5-mobile") %>
+        </div>
+      </div>
+  </nav>
+</header>
+<% if admin_session? && edit_link %>
+  <div class="edit-icon">
+    <a href="<%= edit_link %>" role="button" class="" aria-label="menu" aria-expanded="false">
+      <img src="<%= asset_path('pen-to-square-solid.svg') %>" title="Edit record" alt="Edit record" width="50px">
+    </a>
+  </div>
+<% end %>

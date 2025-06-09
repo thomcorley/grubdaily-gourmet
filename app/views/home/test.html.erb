@@ -1,0 +1,22 @@
+<% content_for :head do %>
+  <meta name="robots" content="noindex">
+  <script type="module">
+    import { Application } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
+    import HelloController from "/javascript/controllers/hello_controller.js";
+
+    window.Stimulus = Application.start();
+    HelloController.init();
+  </script>
+<% end %>
+
+<section class="delicious">
+  <main role="main">
+    <section class="photo-gallery">
+      <div data-controller="hello">
+        <div class="has-text-centered" data-hello-target="name">
+          <h4>Test Page</h4>
+        </div>
+      </div>
+    </section>
+  </main>
+</section>

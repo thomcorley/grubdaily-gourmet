@@ -1,0 +1,38 @@
+@import "vars";
+
+.tags-page {
+  .tags-header {
+    padding: 20px 0;
+    font: 500 2.4rem $header-font, sans-serif;
+
+    .tag-name {
+      color: $green-colour;
+      font-weight: 900;
+    }
+  }
+
+  .entry-type {
+    font-weight: 700;
+    font-size: 12px;
+    color: $grey-color-light;
+    letter-spacing: 0.1rem;
+  }
+
+  h2 {
+    line-height: 1;
+  }
+
+  .tag-intro {
+    p {
+      font: 300 12px Lato, sans-serif;
+
+      .tag-name {
+        font-weight: normal;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+}

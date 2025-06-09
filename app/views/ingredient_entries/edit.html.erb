@@ -1,0 +1,27 @@
+<turbo-frame id="recipe" target="_top">
+  <div class="section">
+    <div class="container is-widescreen">
+      <%= render(
+            "form",
+            ingredient_entry: @ingredient_entry,
+            ingredient_entries: @ingredient_entries,
+            locals: { ingredient_entry: @ingredient_entry }
+        )
+      %>
+      <div class="control">
+        <%= button_to(
+          "Delete",
+          recipe_ingredient_set_ingredient_entry_path(@recipe, @ingredient_set, @ingredient_entry),
+          method: :delete,
+          class: "button is-danger",
+          data: {
+            confirm: "Really?",
+            disable_with: "deleting...",
+            turbo: false
+          }
+        )%>
+      </div>
+      </br>
+    </div>
+  </div>
+</turbo-frame>

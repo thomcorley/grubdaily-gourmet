@@ -1,0 +1,116 @@
+<div class="page-content block">
+  <%= form_with(model: digested_read) do |form| %>
+    <% if digested_read.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(digested_read.errors.count, "error") %> prohibited this digested_read from being saved:</h2>
+
+        <ul>
+          <% digested_read.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :title, class: "label" %>
+      <div class="control">
+        <%= form.text_field :title, id: :digested_read_title, class: "input" %>
+      </div>
+    </div>
+
+    <% if digested_read.image&.attached? %>
+      <div class="field">
+        <%= image_tag(digested_read.image.variant(resize_to_limit: [536, 536]).processed.url) %>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :image, class: "label" %>
+      <div class="control">
+        <%= form.file_field :image, id: :digested_read_image, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :summary, class: "label" %>
+      <div class="control">
+        <%= form.text_field :summary, id: :digested_read_title, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :content, class: "label" %>
+      <div class="control">
+        <%= form.text_area :content, id: :digested_read_content, placeholder: @placeholder, class: "textarea" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :tags, class: "label" %>
+      <div class="control">
+        <%= form.text_field :tags, id: :digested_read_tags, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :published_at, class: "label" %>
+      <div class="control">
+        <%= form.date_field :published_at, id: :digested_read_published_at, class: "input" %>
+      </div>
+    </div>
+
+    <% if digested_read.book_cover&.attached? %>
+      <div class="field">
+        <p class="label">Book Cover</p>
+        <%= image_tag(digested_read.book_cover.variant(resize_to_limit: [96, 96]).processed.url) %>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <div class="control">
+        <%= form.file_field :book_cover, id: :digested_read_book_cover, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :affiliate_link, class: "label" %>
+      <div class="control">
+        <%= form.text_field :affiliate_link, id: :digested_read_affiliate_link, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :author_info, class: "label" %>
+      <div class="control">
+        <%= form.text_area :author_info, id: :digested_read_author_info, class: "textarea" %>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class: "button is-success" %>
+      </div>
+
+      <% if digested_read.persisted? %>
+        <div class="control">
+          <%= link_to(
+            "Back",
+            digested_read,
+            class: "button"
+          )%>
+        </div>
+
+        <div class="control">
+          <%= link_to(
+            "Delete",
+            digested_read,
+            method: :delete,
+            class: "button is-danger",
+            data: { confirm: "Really?", disable_with: "deleting..." }
+          )%>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

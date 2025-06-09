@@ -1,0 +1,13 @@
+@import "vars";
+
+.section.subscription-confirmed { min-height: 100vh; max-width: 500px; text-align: center; margin: auto;
+  .container {
+    .title { font: 400 36px Lato, serif; color: $grey-color-dark; }
+    a { color: $green-colour; text-decoration: underline;
+      &:hover { color: $grey-color-normal; }
+      &:active { border: none; }
+    }
+    ol { text-align: left; padding-left: 2rem }
+    li { padding-bottom: 20px }
+  }
+}

@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      a { color: #E5A636; text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <p>
+      <img src="https://www.grubdaily.com/images/email-header-logo.png" width="600px" title="grubdaily" alt="grubdaily">
+    </p>
+
+    <p>
+      <img src="<%= attachments["recipe.jpg"].url %>" width="600px" alt="<%= @recipe.title %> Image" title="<%= @recipe.title %>">
+    </p>
+
+    <h1 style="color: #E5A636;">
+        <%= @recipe.title %>
+    </h1>
+
+    <div style="max-width: 600px">
+      <%= simple_format(@introduction) %>
+    </div>
+
+    <h3>It's tasty!</h3>
+    <p>
+      Happy cooking and happy eating :)
+    </p>
+    <p>Tom</p>
+    <p>
+      <em>PS. If you're not interested in these email updates, you can
+        <%= link_to(
+          "unsubscribe",
+          delete_email_subscriber_url(id: @email_subscriber.id),
+          method: :delete,
+          title: "Unsubscribe"
+        ) %>.
+      </em>
+    </p>
+  </body>
+</html>

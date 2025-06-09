@@ -1,0 +1,105 @@
+<% content_for :head do %>
+  <% title 'Home' %>
+  <script type="application/ld+json"><%= recipe_carousel_json_schema %></script>
+  <meta name="turbo-visit-control" content="reload">
+
+  <meta property="og:title" content="grubdaily – for tasty things"/>
+  <meta property="og:image" content="https://www.grubdaily.com/images/duck-rillettes.jpg"/>
+  <meta property="og:description" content="Recipes, ingredients, cooking, eating and drinking"/>
+  <meta property="og:url" content="<%= "https://www.grubdaily.com" %>"/>
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="627" />
+
+  <script type="module">
+    import { Application } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
+    import GalleryController from "/javascript/controllers/gallery_controller.js";
+    GalleryController.init();
+  </script>
+<% end %>
+
+<% content_for(:body_container_additional_class, "home-page") %>
+
+<div class="index">
+  <div class="hero-image wild-garlic"></div>
+
+  <% if foraged_collection = Collection.find_by(title: 'Foraged and Wild Food') %>
+    <section class="section grey-section">
+      <%= render "shared/entry_grid_tall", entries: foraged_collection.entries.first(4), title: 'Foraged and Wild Food' %>
+
+      <div class="view-all-recipes">
+        <%= render "shared/load_more_button",
+          button_text: "View all Foraged Food Recipes",
+          path: friendly_collection_path('foraged-wild-food')
+        %>
+      </div>
+    </section>
+  <% end %>
+
+  <% if game_recipes = Collection.find_by(title: 'Game Recipes') %>
+    <section class="section white-section">
+      <%= render "shared/entry_grid_tall", entries: game_recipes.entries.last(4), title: 'Game Recipes' %>
+
+      <div class="view-all-recipes">
+        <%= render "shared/load_more_button",
+          button_text: "View all Game Recipes",
+          path: friendly_collection_path('game-recipes')
+        %>
+      </div>
+    </section>
+  <% end %>
+
+  <section class="section grey-section">
+    <%= render "shared/entry_grid_tall", entries: @recipes, title: 'More Recipes' %>
+
+    <div class="view-all-recipes">
+      <%= render "shared/load_more_button", button_text: "View all Recipes", path: recipe_index_path %>
+    </div>
+  </section>
+</section>
+
+<section class="section white-section">
+  <div class="container blog-posts">
+    <div class="section-title truncated is-flex is-justify-content-center">
+      <h2 class="is-size-3">Blog Posts</h2>
+    </div>
+
+    <div class="columns is-multiline px-2">
+      <% @blog_posts.each do |blog_post| %>
+        <div class="column is-half-tablet blog-post-container">
+          <div class="box entry-panel">
+            <a href="<%= blog_post.permalink %>" title="<%= blog_post.title %>">
+              <div class="columns is-mobile">
+                <div class="column is-one-quarter-mobile is-one-third-tablet">
+                  <div class="image-container">
+                    <%= render "shared/image",
+                      image: blog_post.image,
+                      entry: blog_post,
+                      version: Image::SMALL_SQUARE,
+                      remove_on_error: true
+                    %>
+                  </div>
+                </div>
+
+                <div class="column">
+                  <div class="blog-post-summary">
+                    <div class="blog-post-title is-size-4 is-size-5-mobile has-text-left level-left">
+                      <h3><%= blog_post.title %></h3>
+                    </div>
+
+                    <div class="blog-post-excerpt has-text-left">
+                      <h4 class="is-size-6-mobile is-size-6"><%= strip_tags(blog_post.summary) %></h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="view-all-blog-posts">
+      <%= render "shared/load_more_button", button_text: "View all Blog Posts", path: blog_post_index_path %>
+    </div>
+  </div>
+</section>

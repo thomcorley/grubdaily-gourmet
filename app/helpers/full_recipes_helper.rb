@@ -1,0 +1,2 @@
+module FullRecipesHelper
+end

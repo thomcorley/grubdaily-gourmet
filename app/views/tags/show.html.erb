@@ -1,0 +1,61 @@
+<% content_for :head do %>
+  <% title("Entries tagged '#{@tag_name}'".html_safe) %>
+  <% meta_tag :description, "All '#{@tag_name}' entries listed, including recipes and blog posts" %>
+<% end %>
+
+<section class="delicious tags-page">
+  <div class="container tagged">
+    <div class="has-text-centered tags-header">
+      <h1 class="is-size-2">Entries tagged <b class="tag-name"><%= @tag_name %></b></h1>
+      <div class="tag-intro">
+        <p class="pt-2 is-size-6">
+          Listing all entries tagged <%= @tag_name %>.
+          Alternatively, you can
+          <%= link_to "search the whole site for '#{@tag_name}'", search_path(term: @tag_name) %>
+        </p>
+      </div>
+    </div>
+
+    <div class="columns is-multiline px-2">
+      <% @entries.each do |entry| %>
+        <div class="column is-half-tablet blog-post-container">
+          <div class="box">
+            <a href="<%= entry.permalink %>" title="<%= entry.title %>">
+              <div class="columns is-mobile">
+                <% if entry.has_image? %>
+                  <div class="column is-one-quarter-mobile is-one-third-tablet">
+                    <div class="image-container">
+                      <%= render "shared/image",
+                        image: entry.image,
+                        entry: entry,
+                        version: Image::SMALL_SQUARE,
+                        remove_on_error: true
+                      %>
+                    </div>
+                  </div>
+                <% end %>
+
+                <div class="column">
+                  <div class="blog-post-summary has-text-left">
+                    <div class="entry-type">
+                      <%= entry.entryable.class.to_s.tableize.humanize.singularize.upcase %>
+                    </div>
+
+                    <div class="blog-post-title is-size-4 is-size-5-mobile level-left">
+                      <!-- <%= entry.title %> -->
+                      <h2><%= entry.title %></h2>
+                    </div>
+
+                    <div class="blog-post-excerpt">
+                      <h4 class="is-size-6-mobile is-size-6"><%= strip_tags(entry.summary) %></h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

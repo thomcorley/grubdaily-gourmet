@@ -1,0 +1,56 @@
+---<br>
+layout: post<br>
+date: <%= Date.today %><br>
+title: <%= @recipe.title %><br>
+permalink: <%= @recipe.permalink %><br>
+author: Tom<br>
+category: <%= @category %><br>
+serves: <%= @recipe.serves %><br>
+makes: <%= @recipe.serves_or_makes %><br>
+tags:<br> 
+
+<% @tags.each do |t| %>
+&nbsp&nbsp-  <%= t %><br>
+<% end %>
+
+img_url: <%= @recipe.image_url %><br>
+recipe:<br>
+&nbsp&nbsp"@context": http://schema.org<br>
+&nbsp&nbsp"@type": Recipe<br>
+&nbsp&nbspname: <%= @recipe.title %><br>
+&nbsp&nbspauthor: Tom<br>
+&nbsp&nbspimage: <%= @recipe.image_url %><br>
+&nbsp&nbspdatePublished: <%= Date.today %><br>
+&nbsp&nbsptotalTime: <%= @recipe.total_time %><br>
+&nbsp&nbsprecipeYield: <%= @recipe.serves_or_makes %><br>
+&nbsp&nbspdescription: "<%= @recipe.summary %>"<br>
+&nbsp&nbspaggregateRating:<br>
+&nbsp&nbsp&nbsp&nbspratingValue: <%= @recipe.rating_value %><br>
+&nbsp&nbsp&nbsp&nbspratingCount: <%= @recipe.rating_count %><br>
+&nbsp&nbsprecipeIngredient:<br>
+
+<% @recipe.ingredient_entries.each do |i| %>
+ &nbsp&nbsp&nbsp&nbsp- <%= i.original_string %><br>
+<% end %>
+
+&nbsp&nbsprecipeInstructions:<br>
+
+<% @recipe.method_steps.each do |m| %>
+ &nbsp&nbsp&nbsp&nbsp- "<%= m.description %>"<br>
+<% end %>
+---<br>
+&lt;img src="<%= @recipe.image_url %>" alt="<%= @recipe.title %>"/&gt;<br>
+<br>
+<% @recipe.introduction_paragraphs.each do |p| %><br>
+	<%= p %><br>
+<% end %>
+<br>---<br>
+
+<% @recipe.ingredient_entries.sort.each do |i| %>
+ * <%= i.original_string %><br>
+<% end %>
+<br>
+<br>
+<% @recipe.method_steps.order(:position).each do |m| %>
+ <%= m.position %>. <%= m.description %><br><br>
+<% end %>

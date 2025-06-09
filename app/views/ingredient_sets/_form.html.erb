@@ -1,0 +1,76 @@
+<% content_for :head do %>
+  <script type="module">
+    import { Application } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
+    import IngredientSetsController from "/javascript/controllers/recipes/ingredient_sets_controller.js";
+
+    IngredientSetsController.init();
+  </script>
+<% end %>
+
+<div class="page-content block" data-controller="recipes--ingredient-sets">
+  <%= form_with(model: [@recipe, @ingredient_set], local: true, turbo: false) do |form| %>
+    <% if ingredient_set.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(ingredient_set.errors.count, "error") %> prohibited this ingredient_set from being saved:</h2>
+
+        <ul>
+        <% ingredient_set.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :title, "Ingredient Set Title", class: "label" %>
+      <div class="control">
+        <%= form.text_field :title, id: :ingredient_set_title, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :title, "Position", class: "label" %>
+      <div class="control">
+        <%= form.text_field :position, id: :ingredient_set_position, class: "input" %>
+      </div>
+    </div>
+
+    <% if ingredient_set.ingredient_entries.any? %>
+      <%= form.label :title, "Ingredient Entries", class: "label" %>
+
+      <!-- Hidden fields to be updated with Javascript -->
+      <div class="ingredient-entry-hidden-inputs" data-recipes--ingredient-sets-target="ingredientEntryInputs">
+        <%= form.fields_for :ingredient_entries do |ingredient_entry_fields| %>
+          <%= ingredient_entry_fields.hidden_field :id, { class: "ingredient-entry-id" } %>
+          <%= ingredient_entry_fields.hidden_field :position, { class: "ingredient-entry-position" } %>
+        <% end %>
+      </div>
+
+      <div class="field ingredient-entries-list" data-recipes--ingredient-sets-target="ingredientEntryContainer">
+        <% ingredient_set.ordered_ingredient_entries.each do |ingredient_entry| %>
+          <div class="ingredient-entry" ingredient-entry-id="<%= ingredient_entry.id %>" data-recipes--ingredient-sets-target="ingredientEntry">
+            <span class="icon"><i class="fas fa-solid fa-grip-vertical"></i></span>
+            <span>
+              <%= link_to ingredient_entry.human_readable_entry, edit_recipe_ingredient_set_ingredient_entry_path(@recipe, @ingredient_set, ingredient_entry) %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class: "button is-success" %>
+      </div>
+
+      <div class="control">
+        <%= link_to(
+          "Back",
+          ingredient_set.recipe,
+          class: "button",
+          data: { turbo_frame: "_top" }
+        )%>
+      </div>
+    </div>
+  <% end %>
+</div>

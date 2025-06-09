@@ -1,0 +1,154 @@
+<div class="page-content block">
+  <%= form_with(model: blog_post, local: true, data: {turbo: false}) do |form| %>
+    <% if blog_post.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(blog_post.errors.count, "error") %> prohibited this blog post from being saved:</h2>
+
+        <ul>
+        <% blog_post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :title, class: "label" %>
+      <div class="control">
+        <%= form.text_field :title, id: :blog_post_title, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Hashtags</label>
+      <p class="hashtags"><%= Hashtags.for_entry(@blog_post) %></p>
+    </div>
+
+    <% if blog_post.attached_images&.attached? %>
+      <% if blog_post.attached_images.first.present? %>
+        <div class="field">
+          <p class="label">First Image</p>
+
+          <%= image_tag(blog_post.attached_images.first.variant(resize_to_limit: [536, 536])) %>
+
+          <div class="caption"><%= blog_post.attached_images.first.caption %></div>
+
+          <%= link_to(
+            "Delete Image",
+            delete_attachment_path(blog_post.attached_images.first.id),
+            method: :delete,
+            class: "button is-danger is-small",
+            data: { confirm: "Really?", disable_with: "deleting..." }
+          )%>
+
+          <%= link_to("Edit Caption", edit_attachment_path(blog_post.attached_images.first.id), class: "button is-small", target: '_blank')%>
+        </div>
+      <% end %>
+
+      <% if blog_post.attached_images.second.present? %>
+        <div class="field">
+          <p class="label">Second Image</p>
+
+          <%= image_tag(blog_post.attached_images.second.variant(resize_to_limit: [536, 536])) %>
+
+          <div class="caption"><%= blog_post.attached_images.second.caption %></div>
+
+          <%= link_to(
+            "Delete Image",
+            delete_attachment_path(blog_post.attached_images.second.id),
+            method: :delete,
+            class: "button is-danger is-small",
+            data: { confirm: "Really?", disable_with: "deleting..." }
+          )%>
+
+          <%= link_to("Edit Caption", edit_attachment_path(blog_post.attached_images.second.id), class: "button is-small", target: '_blank')%>
+        </div>
+      <% end %>
+
+      <% if blog_post.attached_images.third.present? %>
+        <div class="field">
+          <p class="label">Third Image</p>
+
+          <%= image_tag(blog_post.attached_images.third.variant(resize_to_limit: [536, 536])) %>
+
+          <div class="caption"><%= blog_post.attached_images.third.caption %></div>
+
+          <p><%= blog_post.attached_images.third.caption %></p>
+
+          <%= link_to(
+            "Delete Image",
+            delete_attachment_path(blog_post.attached_images.third.id),
+            method: :delete,
+            class: "button is-danger is-small",
+            data: { confirm: "Really?", disable_with: "deleting..." }
+          )%>
+
+          <%= link_to("Edit Caption", edit_attachment_path(blog_post.attached_images.third.id), class: "button is-small", target: '_blank')%>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% unless blog_post.attached_images.third.present? %>
+      <div class="field">
+        <%= form.label :attach_another_image, class: "label" %>
+        <div class="control">
+          <%= form.file_field :attached_images, multiple: true, id: :blog_post_attached_images, class: "input" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :summary, class: "label" %>
+      <div class="control">
+        <%= form.text_field :summary, id: :blog_post_summary, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :content, class: "label" %>
+      <div class="control">
+        <%= form.text_area :content, id: :blog_post_content, class: "textarea" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :tags, class: "label" %>
+      <div class="control">
+        <%= form.text_field :tag_names, id: :blog_post_tags, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :published_at, class: "label" %>
+      <div class="control">
+        <%= form.date_field :published_at, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class: "button is-success" %>
+      </div>
+
+      <% if blog_post.persisted? %>
+        <div class="control">
+          <%= link_to(
+            "Back",
+            blog_post,
+            class: "button"
+          )%>
+        </div>
+
+        <div class="control">
+          <%= link_to(
+            "Delete",
+            blog_post,
+            method: :delete,
+            class: "button is-danger",
+            data: { confirm: "Really?", disable_with: "deleting..." }
+          )%>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

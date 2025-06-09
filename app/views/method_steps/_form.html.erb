@@ -1,0 +1,43 @@
+<div class="page-content block">
+  <%= form_with(model: [@recipe, @method_step], local: true) do |form| %>
+    <% if method_step.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(method_step.errors.count, "error") %> prohibited this method_step from being saved:</h2>
+
+        <ul>
+        <% method_step.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :position, class: "label" %>
+      <div class="control">
+        <%= form.number_field :position, id: :method_step_position, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :description, class: "label" %>
+      <div class="control">
+        <%= form.text_area :description, id: :method_step_description, class: "textarea" %>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class: "button is-success" %>
+      </div>
+
+      <div class="control">
+        <%= link_to(
+          "Back",
+          method_step.recipe,
+          class: "button"
+        )%>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,7 @@
+<div id="truncated-recipe-list" class="columns is-multiline is-mobile px-2">
+  <%= render "shared/entry_list", entries: recipes %>
+</div>
+
+<% unless recipes.last == Recipe.published_with_image.order(created_at: :desc).last %>
+  <%= render "shared/load_more_button", button_text: "Load more recipes", path: more_recipes_path(page: page) %>
+<% end %>

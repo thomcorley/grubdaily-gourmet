@@ -1,0 +1,17 @@
+<% entries_field ||= :entries %>
+
+<div class="field entries-autocomplete" data-action="admin-entries-autocomplete.change->autocomplete#clearInput">
+  <div data-controller="admin-entries-autocomplete" data-admin-entries-autocomplete-url-value="<%= entries_autocomplete_path %>" role="combobox">
+    <%= form.label entries_field, class: "label" %>
+
+    <input class="input" type="text" data-admin-entries-autocomplete-target="input" placeholder="Search to add ..." />
+    <input type="hidden" name="<%= entries_field %>" data-admin-entries-autocomplete-target="hiddenInput" value="<%= entries.map(&:id) %>"/>
+    <ul class="list-group" data-admin-entries-autocomplete-target="results"></ul>
+
+    <div class="selected-list" data-admin-entries-autocomplete-target="selectedList" >
+      <% entries.each do |entry| %>
+        <%= render "shared/autocomplete_entry", entry: entry, selected: true %>
+      <% end %>
+    </div>
+  </div>
+</div>

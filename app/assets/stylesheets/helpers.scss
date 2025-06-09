@@ -1,0 +1,10 @@
+.clear:before,
+.clear:after { content: ""; display: table; }
+.clear:after { clear: both; }
+.clear { zoom: 1; }
+
+.clr { clear: both; display: block; height: 0; line-height: 0; font-size: 0; }
+
+::-ms-clear {
+  display: none;
+}

@@ -1,0 +1,21 @@
+<% content_for :head do %>
+  <meta name="robots" content="noindex">
+<% end %>
+
+<section class="delicious">
+  <main role="main">
+    <div class="section-title"></div>
+      <article class="page single contact-form" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="container">
+          <header class="post-header">
+              <h3 class="post-title" itemprop="name headline">Thanks for getting in touch</h3>
+          </header>
+          <div class="page-content">
+            <p>I'll get back to you as soon as I can. In the meantime, why don't you <%= link_to("browse some recipes", :recipe_index) %>?</p>
+          </div>
+        </div>
+      </article>
+  </main>
+</section>
+
+

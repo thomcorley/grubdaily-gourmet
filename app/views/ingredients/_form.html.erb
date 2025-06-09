@@ -1,0 +1,105 @@
+<div class="page-content block ingredient-form">
+  <%= form_with(model: ingredient, local: true, data: { turbo: false }, class: "turbo-frame#new-ingredient") do |form| %>
+    <% if ingredient.errors.any? %>
+      <div class="alert alert-danger">
+        <h2><%= pluralize(ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
+
+        <ul>
+        <% ingredient.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <% if ingredient.image&.attached? %>
+      <div class="field">
+        <p class="label">Image</p>
+        <%= image_tag(ingredient.image.variant(resize_to_limit: [536, 536])) %>
+        <%= link_to(
+          "Delete Image",
+          delete_attachment_path(ingredient.image.id),
+          method: :delete,
+          class: "button is-danger is-small",
+          data: { confirm: "Really?", disable_with: "deleting..." }
+        )%>
+      </div>
+    <% else %>
+      <div class="field">
+        <%= form.label :image, class: "label" %>
+        <div class="control">
+          <%= form.file_field :image, id: :ingredient_image, class: "input" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :name, class: "label" %>
+      <div class="control">
+        <%= form.text_field :name, id: :ingredient_name, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :synonyms, class: "label" %>
+      <div class="control">
+        <%= form.text_field :synonyms, id: :ingredient_synonyms, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :content, class: "label" %>
+      <div class="control">
+        <%= form.text_area :content, id: :ingredient_content, class: "textarea" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :animal_status, class: "label" %>
+      <div class="control">
+        <div class="select">
+          <%= form.select :animal_status, Ingredient.animal_statuses.keys, id: :ingredient_animal_status %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :nutrition, class: "label" %>
+      <div class="control">
+        <%= form.text_area :nutrition, id: :ingredient_nutrition, class: "textarea nutrition-field" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :publishable, class: "label" %>
+      <div class="control">
+        <%= form.check_box :publishable, id: :ingredient_publishable, class: "checkbox", hidden: false %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :related_recipes_heading, class: "label" %>
+      <div class="control">
+        <%= form.text_field :related_recipes_heading, id: :ingredient_related_recipes_heading, class: "input", hidden: false %>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class: "button is-success" %>
+      </div>
+
+      <% if @ingredient.persisted? %>
+        <div class="control">
+          <%= link_to(
+            "Back",
+            ingredient_path,
+            class: "button",
+            data: { turbo_frame: "_top" }
+          )%>
+        </div>
+
+      <% end %>
+    </div>
+  <% end %>
+</div>

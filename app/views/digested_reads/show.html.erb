@@ -1,0 +1,74 @@
+<% content_for :head do %>
+  <!-- TODO: add json schema for digested read -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@700&display=swap" rel="stylesheet">
+<% end %>
+
+<% flash.each do |key, value| %>
+  <%= content_tag :div, value, class: "flash #{key}" %>
+<% end %>
+
+<section class="delicious">
+  <main role="main">
+    <article class="post single" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><%= @digested_read.title + " – digested read" %></h1>
+        <div class="post-meta clear">
+          <time datetime="<%= @digested_read.display_date.to_datetime %>" itemprop="datePublished">
+            <%= @digested_read.display_date.strftime("%-d %b %Y") %>
+          </time>
+
+          <% if admin_session? %>
+            <% if @digested_read.published? %>
+              <p class="published-tag">/ Published</p>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="post-meta clear">
+          <span class="tags">
+            <% @tags.each do |tag| %>
+              <span><%= tag %></span>
+            <% end %>
+          </span>
+        </div>
+      </header>
+
+      <div class="header-image">
+        <p>
+          <%= render "shared/image", image: @digested_read.image, version: Image::MAIN, loading: "eager" %>
+        </p>
+      </div>
+
+       <div class="post-content" itemprop="text">
+        <div class="first-paragraph">
+          <p><%= formatted_section(@digested_read.content_sections.first) %></p>
+        </div>
+
+        <p><%= formatted_section(@digested_read.content_sections.second) %></p>
+      </div>
+
+      <hr>
+
+      <article class="media">
+        <figure class="media-left">
+          <p class="image is-96x96">
+            <a href="<%= @digested_read.affiliate_link %>">
+              <%= render "shared/image", image: @digested_read.book_cover, version: Image::SMALL_SQUARE, loading: "lazy" %>
+            </a>
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <strong><%= @digested_read.author_info_sections[0] %></strong>
+              <small>(<%= @digested_read.author_info_sections[1] %>)</small>
+              <br>
+              <%= @digested_read.author_info_sections[2] %>
+            </p>
+          </div>
+        </div>
+      </article>
+    </article>
+  </main>
+</section>

@@ -1,0 +1,97 @@
+<% content_for :head do %>
+  <meta name="robots" content="noindex">
+<% end %>
+
+<div class="page-content block">
+  <%= form_with(model: image_upload, local: true, data: { turbo: false }) do |form| %>
+    <% if image_upload.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(image_upload.errors.count, "error") %> prohibited this Image Upload from being saved:</h2>
+
+        <ul>
+        <% image_upload.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :title, class: "label" %>
+      <div class="control">
+        <%= form.text_field :title, id: :image_upload_title, class: "input" %>
+      </div>
+    </div>
+
+    <% if image_upload.persisted? %>
+      <div class="field">
+        <%= link_to(
+          "View as YAML",
+          as_yaml_image_upload_path(image_upload),
+          class: "button is-small",
+          data: { turbo_frame: "_top" },
+          target: "_blank"
+        )%>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :description, class: "label" %>
+      <div class="control">
+        <%= form.text_field :description, id: :image_upload_description, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :website_url, class: "label" %>
+      <div class="control">
+        <%= form.text_field :website_url, id: :image_upload_website_url, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :published_at, class: "label" %>
+      <div class="control">
+        <%= form.date_field :published_at, class: "input" %>
+      </div>
+    </div>
+
+    <% if image_upload.image&.attached? %>
+      <div class="field">
+        <p class="label">Image</p>
+        <%= image_tag(@image_upload.image.variant(resize_to_limit: [536, 536])) %>
+        <%= link_to(
+          "Delete Image",
+          delete_attachment_path(image_upload.image.id),
+          method: :delete,
+          class: "button is-danger is-small",
+          data: { confirm: "Really?", disable_with: "deleting..." }
+        )%>
+      </div>
+    <% else %>
+      <div class="field">
+        <%= form.label :image, class: "label" %>
+        <div class="control">
+          <%= form.file_field :image, id: :image_upload_image, class: "input" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class: "button is-success" %>
+      </div>
+
+      <% if image_upload.persisted? %>
+        <div class="control">
+          <%= link_to(
+            "Back",
+            image_upload,
+            class: "button",
+            data: { turbo_frame: "_top" },
+          )%>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

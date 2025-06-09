@@ -1,0 +1,86 @@
+<section class="section is-small light-green-section">
+  <div id="subscribe" class="subscribe-form">
+    <div class="section-title has-text-centered">
+      <h2 class="is-size-3 is-size-4-mobile">
+        Subscribe to my mailing list
+      </h2>
+    </div>
+
+    <div class="is-flex is-justify-content-center">
+      <%= form_with model: @email_subscriber, url: email_subscribers_path, id: "subscriber-form", data: { turbo: "false" } do |form| %>
+        <%= hidden_field_tag :re_captcha, :re_captcha_token %>
+
+        <div class="field has-addons">
+          <div class="control">
+            <%= form.email_field :email,
+              class: "input is-medium email-field",
+              placeholder: "Enter your email"
+            %>
+          </div>
+
+          <div class="control">
+            <%= form.submit value: "Sign up",
+              class: "button is-medium submit-button",
+              "data-sitekey" => recaptcha_site_key,
+              "data-callback" => "onSubmit",
+              "data-action" => "submit"
+            %>
+          </div>
+        </div>
+
+        <% if flash[:validation_error] %>
+          <div class="notice"><%= flash[:validation_error].sub("Validation failed: Email", "Error: email") %></div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<footer id="footer" class="footer clear">
+  <div class="container content has-text-centered">
+    <div class="columns is-variable is-8 is-3-tablet">
+      <div class="column">
+        <div class="first-column">
+          <div class="blog-logo">
+            <a href="<%= root_path %>">
+              <%= render partial: 'shared/svg/grubdaily_logo', locals: { width: 200 } %>
+            </a>
+          </div>
+
+          <div class="footer-summary">
+            <p>A personal collection of recipes and musings on ingredients, cooking and eating.</p>
+            <p>Here you can find tasty, delicious things to cook. Go forth, eat well and enjoy.</p>
+          </div>
+
+          <div class="social">
+            <a href="https://facebook.com/grubdaily"><%= render "home/facebook_icon" %></a>
+            <a href="https://twitter.com/grubdaily_tom"><%= render "home/twitter_icon" %></a>
+            <a href="https://www.instagram.com/grubdaily"><%= render "home/instagram_icon" %></a>
+            <a href="https://www.pinterest.co.uk/grubdaily"><%= render "home/pinterest_icon" %></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="footer-nav second-column">
+          <p class="browse-grubdaily">Browse grubdaily</p>
+          <p class="link"><%= link_to("Recipes", recipe_index_path) %></p>
+          <p class="link"><%= link_to("Blog Posts", blog_posts_path) %></p>
+          <p class="link"><%= link_to("About", about_path) %></p>
+          <p class="link"><%= link_to("Sitemap", "/sitemap.xml") %></p>
+          <p class="has-text-weight-bold pt-5 mb-1">My other project</p>
+          <p class="link"><%= link_to("Peanut Caramel", "https://www.peanutcaramel.uk", target: "_blank") %></p>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="footer-copyright third-column">
+          <hr class="line-break">
+          <p>Copyright &copy; grubdaily <%= Date.today.year %>.</p>
+          <p>The content on this website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

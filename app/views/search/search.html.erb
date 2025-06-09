@@ -1,0 +1,104 @@
+<% content_for :head do %>
+  <% if @term %>
+    <% title "Search results for '#{@term}'" %>
+  <% else %>
+    <% title 'Search' %>
+  <% end %>
+
+  <% if @term %>
+    <% meta_tag :description, "'#{@term}' search results – searching Grubdaily for all Recipes and Blog Posts, displaying the most recent first" %>
+  <% else %>
+    <% meta_tag :description, "Search Grubdaily for all Recipes and Blog Posts, displaying the most recent first" %>
+  <% end %>
+
+  <meta name="robots" content="noindex">
+
+  <script type="module">
+    import { Application } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
+    import SearchController from "/javascript/controllers/search_controller.js";
+
+    window.Stimulus = Application.start();
+    SearchController.init();
+  </script>
+<% end %>
+
+<% flash.each do |key, value| %>
+  <%= content_tag :div, value, class: "flash #{key}" %>
+<% end %>
+
+<% protocol = Rails.env.development? ? :http : :https %>
+
+<section class="delicious search-page" data-controller="search">
+  <main role="main">
+    <article class="page single">
+      <div class="is-flex is-justify-content-center search-form">
+        <%= form_with url: search_url(protocol: protocol), method: :get, id: "search-form", data: { turbo: "false" } do |form| %>
+          <div class="field has-addons">
+            <div class="control">
+              <%= form.text_field :term,
+                class: "input is-medium term-field",
+                placeholder: "Search...",
+                data: { search_target: 'searchInput' }
+              %>
+            </div>
+
+            <div class="control">
+              <%= form.submit value: "Go", class: "button is-medium submit-button" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @term && @entries.any? %>
+        <div class="is-flex is-justify-content-center search-results-title">
+          <h1 class="is-size-2">Search results for <b class="term"><%= @term %></b></h1>
+        </div>
+
+        <div class="container search-results is-justify-content-center">
+          <% @entries.each do |entry| %>
+            <div class="blog-post-container py-2">
+              <div class="box">
+                <a href="<%= entry.permalink %>" title="<%= entry.title %>">
+                  <div class="columns is-mobile">
+                    <% if entry.has_image? %>
+                      <div class="column is-one-quarter">
+                          <div class="image-container">
+                            <%= render "shared/image",
+                              image: entry.image,
+                              entry: entry,
+                              version: Image::SMALL_SQUARE,
+                              remove_on_error: true
+                            %>
+                          </div>
+                      </div>
+                    <% end %>
+
+                    <div class="column">
+                      <div class="blog-post-summary has-text-left">
+                        <div class="entry-type">
+                          <%= entry.entryable.class.to_s.tableize.humanize.singularize.upcase %>
+                        </div>
+
+                        <div class="blog-post-title is-size-4 is-size-5-mobile level-left">
+                          <h2><%= entry.title %></h2>
+                        </div>
+
+                        <div class="blog-post-excerpt">
+                          <h4 class="is-size-6-mobile is-size-6"><%= strip_tags(entry.summary) %></h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% elsif @term && @entries.none? %>
+        <div class="is-flex is-justify-content-center search-results-title">
+          <h4 class="is-size-3">sorry, nothing found for <b class="term"><%= @term %></b></h4>
+        </div>
+      <% end %>
+    </article>
+  </main>
+</section>

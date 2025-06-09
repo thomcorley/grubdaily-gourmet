@@ -1,0 +1,12 @@
+<% content_for :head do %>
+  <script src="https://kit.fontawesome.com/35cac145b0.js" crossorigin="anonymous"></script>
+<% end %>
+
+<turbo-frame id="recipe" target="_top">
+  <div class="section">
+    <div class="container is-widescreen" data-controller="recipes--ingredient-sets">
+      <%= render "form", ingredient_set: @ingredient_set %>
+      </br>
+    </div>
+  </div>
+</turbo-frame>

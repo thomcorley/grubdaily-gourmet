@@ -1,0 +1,72 @@
+@import "mixins";
+@import "bulma";
+@import "vars";
+
+.entries-autocomplete {
+  .selected-list {
+    padding-top: 5px;
+    clear: both;
+    overflow: hidden;
+    position: relative;
+    margin: 10px 0 10px 0;
+    list-style: none;
+    font-size: 18px;
+    background-size: 100% 31px;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+
+  input {
+    @include tablet {
+      width: 50%;
+    }
+  }
+}
+
+.input.list-group-item {
+  cursor: pointer;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 3px 10px;
+  height: 50px;
+
+  .image-container {
+    padding-right: 5px;
+    max-height: 100%;
+  }
+
+  &.selected {
+    cursor: default;
+    background-color: $light-green;
+    margin-top: 5px;
+
+    .xmark {
+      display: block;
+      margin: 3px 3px 0 0;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      cursor: pointer;
+    }
+  }
+
+  .xmark {
+    display: none;
+  }
+
+  &:hover {
+    border-color: #e6f0ec;
+  }
+}
+
+.list-group {
+  position: absolute;
+  z-index: 1000;
+  max-height: 400px;
+  overflow: scroll;
+
+  @include tablet {
+    width: 50%;
+  }
+}

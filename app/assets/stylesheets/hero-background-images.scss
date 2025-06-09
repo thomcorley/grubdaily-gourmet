@@ -1,0 +1,55 @@
+@import "vars";
+@import "bulma";
+
+.hero-image {
+  height: calc(100vh - 2rem);
+  display: block;
+  background-image: url("/images/garlic-bulbs.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &.mushrooms {
+    background-image: url("/images/mushrooms.webp");
+  }
+
+  &.garlic-bulbs {
+    background-image: url("/images/garlic-bulbs.webp");
+
+    @include mobile {
+      background-position: 4%;
+    }
+  }
+
+  &.wild-garlic {
+    background-image: url("/images/wild-garlic-leaves.webp");
+    background-position: 56%;
+  }
+
+  &.minestrone {
+    background-image: url("/images/winter-minestrone.webp");
+
+    @include mobile {
+      background-position: 60% 40%;
+    }
+  }
+}
+
+// Note: this is not used currently, but I'm leaving it here in case I want to use it in future.
+.homepage-overlay {
+  position: absolute;
+  bottom: 1vw;
+  margin: auto;
+  padding: 2rem;
+  margin: 10vw;
+  width: 80vw;
+  height: 100px;
+  background: $grey-color-normal;
+  opacity: 0.8;
+  color: $white;
+  border-radius: 5px;
+
+  h1 {
+    font-weight: 900;
+  }
+}

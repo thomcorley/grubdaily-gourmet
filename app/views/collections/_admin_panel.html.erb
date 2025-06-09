@@ -1,0 +1,17 @@
+<nav class="pagination is-small" role="navigation" aria-label="pagination">
+  <div class="pagination-list dropdown is-hoverable">
+    <div class="dropdown-trigger">
+      <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu">
+        <span>Admin</span>
+        <span class="icon is-small">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </button>
+    </div>
+    <div class="dropdown-menu is-left" id="dropdown-menu" role="menu">
+      <div class="dropdown-content">
+        <%= link_to("Edit", edit_collection_path(@collection), class: "dropdown-item") %>
+      </div>
+    </div>
+  </div>
+</nav>
