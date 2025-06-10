@@ -1,6 +1,4 @@
 class TagsController < ApplicationController
-  caches_page :show
-
   def show
     @tag_name = params[:tag_name]
 
@@ -12,6 +10,8 @@ class TagsController < ApplicationController
       .or(tagged_entries.where(tags: {name: @tag_name.pluralize}))
       .or(tagged_entries.where(tags: {name: @tag_name.singularize}))
       .order(created_at: :desc)
+
+    fresh_when(@entries)
   end
 
   private

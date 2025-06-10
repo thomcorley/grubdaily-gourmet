@@ -1,6 +1,4 @@
 class HomeController < ApplicationController
-  caches_page :index, :about, :recipe_index, :photos, :test
-
   def test
     @key = params[:key]
     @code = params[:code]
@@ -10,13 +8,17 @@ class HomeController < ApplicationController
     @entries_for_carousel = entry_selection.entries_for_carousel
     @recipes = entry_selection.recent_recipes
     @blog_posts = entry_selection.recent_blog_posts
+
+    fresh_when(last_modified: homepage_last_modified, etag: homepage_etag)
   end
 
   def about
+    fresh_when(last_modified: Time.zone.parse("2024-01-01"))
   end
 
   def recipe_index
     @recipes = Recipe.published_with_image.order(created_at: :desc).limit(12)
+    fresh_when(@recipes)
   end
 
   def more_recipes
@@ -50,6 +52,7 @@ class HomeController < ApplicationController
   end
 
   def shop
+    fresh_when(last_modified: Time.zone.parse("2024-06-01"))
   end
 
   def latest_entry
@@ -76,5 +79,21 @@ class HomeController < ApplicationController
 
   def blog_posts
     entry_selection.blog_posts
+  end
+
+  def homepage_last_modified
+    [
+      Recipe.published.maximum(:updated_at),
+      BlogPost.published.maximum(:updated_at)
+    ].compact.max || 1.day.ago
+  end
+
+  def homepage_etag
+    [
+      Recipe.published.count,
+      BlogPost.published.count,
+      Recipe.published.maximum(:updated_at),
+      BlogPost.published.maximum(:updated_at)
+    ]
   end
 end

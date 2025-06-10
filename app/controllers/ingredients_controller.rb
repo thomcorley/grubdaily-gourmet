@@ -3,14 +3,10 @@ class IngredientsController < ApplicationController
 
   before_action :authenticate, except: :show
 
-  caches_page :show
-
-  # GET /ingredients or /ingredients.json
   def index
     @ingredients = Ingredient.all
   end
 
-  # GET /ingredients/1 or /ingredients/1.json
   def show
     entry_sql = <<-SQL
       LOWER(ingredient_entries.ingredient_name) LIKE '%#{@ingredient.name.downcase}%'
@@ -29,18 +25,17 @@ class IngredientsController < ApplicationController
     @introduction_paragraphs = @ingredient.content.split("\n").map do |paragraph|
       MarkdownConverter.convert(paragraph)
     end
+
+    fresh_when(@ingredient)
   end
 
-  # GET /ingredients/new
   def new
     @ingredient = Ingredient.new
   end
 
-  # GET /ingredients/1/edit
   def edit
   end
 
-  # POST /ingredients or /ingredients.json
   def create
     @ingredient = Ingredient.new(ingredient_params)
 

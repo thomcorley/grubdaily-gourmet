@@ -1,12 +1,18 @@
 # frozen_string_literal: true
 class SitemapController < ApplicationController
-  caches_page :show
-
   def show
     @entries = Recipe.published + BlogPost.published
-    # @tags = tags.uniq
     @ingredients = Ingredient.with_content
     @collections = Collection.published
+
+    last_modified = [
+      Recipe.published.maximum(:updated_at),
+      BlogPost.published.maximum(:updated_at),
+      Ingredient.maximum(:updated_at),
+      Collection.maximum(:updated_at)
+    ].compact.max || 1.day.ago
+
+    fresh_when(last_modified: last_modified)
 
     respond_to do |format|
       format.rss { render :layout => false }

@@ -5,9 +5,6 @@ class RecipesController < ApplicationController
 
   before_action :authenticate, except: [:show, :feed]
 
-  # TODO: investigate caching (reinstate it)
-  # caches_page :show
-
   def index
     @recipes = Recipe.all.order(updated_at: :asc)
   end
@@ -44,6 +41,8 @@ class RecipesController < ApplicationController
     else
       RecommendedEntries.find_for(entry: @recipe.entry, size: 4)
     end
+
+    fresh_when(@recipe)
   end
 
   def edit
@@ -108,7 +107,6 @@ class RecipesController < ApplicationController
   end
 
   def set_recipe
-    # Confusingly, `recipe_title` is usually the permalink of the recipe, but sometimes the ID
     if params["recipe_path"]
       @recipe = Recipe.all.find { |recipe| recipe.permalink == "/#{params["recipe_path"]}" }
     elsif params[:id]
@@ -116,7 +114,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def recipe_params
     params.require(:recipe).permit(
       :title,
@@ -149,16 +146,17 @@ class RecipesController < ApplicationController
   end
 
   def expire_recipe_caches
-    expire_page controller: :home, action: [:index, :recipe_index]
-    expire_page controller: :sitemap, action: :show
+    Rails.cache.delete("home_index")
+    Rails.cache.delete("home_recipe_index")
+    Rails.cache.delete("sitemap_entries")
     expire_tags
-    expire_page action: :show, id: @recipe.id
-    expire_page @recipe.permalink
+    Rails.cache.delete("recipe_#{@recipe.id}")
+    Rails.cache.delete_matched("recipe_*")
   end
 
   def expire_tags
     @recipe.tags.map(&:name).each do |tag_name|
-      expire_page "/tags/#{tag_name}"
+      Rails.cache.delete("tag_#{tag_name}")
     end
   end
 

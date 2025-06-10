@@ -7,10 +7,9 @@ class BlogPostsController < ApplicationController
 
   before_action :authenticate, except: [:index, :show, :feed]
 
-  caches_page :show, :index
-
   def index
     @blog_posts = BlogPost.published.order(created_at: :desc).limit(12)
+    fresh_when(@blog_posts)
   end
 
   def new
@@ -46,6 +45,8 @@ class BlogPostsController < ApplicationController
                                 .where.not(id: @blog_post.id)
                                 .offset(rand(BlogPost.published.count - 1))
                                 .limit(4)
+
+    fresh_when(@blog_post)
   end
 
   def update
@@ -151,16 +152,16 @@ class BlogPostsController < ApplicationController
   end
 
   def expire_blog_post_caches
-    expire_page controller: :home, action: :index
-    expire_page controller: :sitemap, action: :show
+    Rails.cache.delete("home_index")
+    Rails.cache.delete("sitemap_entries")
     expire_tags
-    expire_page action: :show, id: @blog_post.id
-    expire_page @blog_post.permalink
+    Rails.cache.delete("blog_post_#{@blog_post.id}")
+    Rails.cache.delete_matched("blog_post_*")
   end
 
   def expire_tags
     @blog_post.tags.map(&:name).each do |tag_name|
-      expire_page "/tags/#{tag_name}"
+      Rails.cache.delete("tag_#{tag_name}")
     end
   end
 
