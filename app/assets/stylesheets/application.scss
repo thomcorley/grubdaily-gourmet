@@ -267,14 +267,36 @@ header {
   background-color: $grubdaily-grey;
 
   .navbar {
+    display: flex;
     background-color: $grubdaily-grey;
     position: relative;
     width: 100%;
     max-width: 100%;
     justify-content: space-between;
+    align-items: center;
 
-    @media screen and (min-width: 769px) {
-      display: none;
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+
+      .blog-logo {
+        flex-shrink: 0;
+      }
+
+      .navbar-burger-container {
+        display: flex;
+        align-items: center;
+
+        .navbar-search-mobile {
+          display: none; // Hidden on desktop by default
+        }
+
+        .navbar-burger {
+          display: none; // Hidden on desktop by default
+        }
+      }
     }
 
     .nav-button-icon {
@@ -291,11 +313,25 @@ header {
         height: 2px;
         width: 20px;
       }
+
+      #navbar-burger {
+        padding-top: 0.7rem;
+      }
     }
 
     .navbar-menu {
-      flex-grow: unset;
+      display: flex; // Always visible on desktop
+      flex-grow: 0;
+      flex-shrink: 0;
       margin-right: 1%;
+      position: static;
+      background-color: transparent;
+      box-shadow: none;
+
+      .navbar-start {
+        display: flex;
+        align-items: center;
+      }
 
       .navbar-item {
         color: white;
@@ -304,9 +340,15 @@ header {
         text-align: center;
         font-weight: 900;
         text-transform: uppercase;
+        padding: 0.5rem 1rem;
+        display: block;
+
+        &.navbar-search-desktop {
+          display: block; // Visible on desktop
+        }
       }
 
-      a:hover {
+      a.navbar-item:hover {
         background-color: $grubdaily-grey;
         color: $naples-yellow;
       }

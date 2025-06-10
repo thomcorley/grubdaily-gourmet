@@ -22,7 +22,24 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body id="body">
+    <div id="main-container">
+      <!-- Environment banner to warn when in development mode -->
+      <% if !Rails.env.production? %>
+          <div>
+            <h2 id="env-banner">
+              <strong><%= Rails.env %></strong>
+            </h2>
+          </div>
+      <% end %>
+
+      <%= render "home/navbar" %>
+      <div class="main-body-container <%= content_for(:body_container_additional_class) %>">
+        <%= yield %>
+      </div>
+
+    <%= render "home/footer" %>
+
+    </div>
   </body>
 </html>

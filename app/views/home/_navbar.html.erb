@@ -7,15 +7,15 @@
           </a>
         </div>
 
-        <div class="is-flex">
-          <div class="nav-button-icon navbar-item navbar-burger">
-            <a href="<%= search_path %>" role="button" class="navbar-search" aria-label="menu" aria-expanded="false">
+        <div class="navbar-burger-container is-flex">
+          <div class="nav-button-icon navbar-search-mobile">
+            <a href="<%= search_path %>" role="button" class="navbar-search" aria-label="search" aria-expanded="false">
               <img src="<%= asset_path('magnifying-glass-solid.svg') %>" title="Search for recipes and blog posts" alt="Search icon" width="50px">
             </a>
           </div>
 
-          <div class="nav-button-icon navbar-item navbar-burger">
-            <a id="nav-burger" role="button" class="navbar-item" aria-label="menu" aria-expanded="false" data-navbar-target="burger">
+          <div class="nav-button-icon navbar-burger" data-navbar-target="burger" data-action="click->navbar#toggle">
+            <a id="nav-burger" role="button" class="navbar-item" aria-label="menu" aria-expanded="false">
               <img
                 class="open-menu-icon"
                 src="<%= asset_path('bars-solid.svg') %>"
@@ -42,7 +42,7 @@
           <%= link_to("Recipes", recipe_index_path, class: "navbar-item is-size-5-mobile") %>
           <%= link_to("Blog Posts", blog_post_index_path, class: "navbar-item is-size-5-mobile") %>
           <%= link_to("About", about_path, class: "navbar-item is-size-5-mobile") %>
-          <%= link_to("Search", search_path, class: "navbar-item is-size-5-mobile") %>
+          <%= link_to("Search", search_path, class: "navbar-item is-size-5-mobile navbar-search-desktop") %>
         </div>
       </div>
   </nav>
