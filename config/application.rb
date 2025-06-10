@@ -16,6 +16,15 @@ module GrubdailyGourmet
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Add node_modules to asset paths for npm packages
+    config.assets.paths << Rails.root.join("node_modules")
+
+    # Configure dartsass-rails to include node_modules
+    config.dartsass.builds = {
+      "application.scss" => "application.css"
+    }
+    config.dartsass.build_options << " --load-path=node_modules"
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
