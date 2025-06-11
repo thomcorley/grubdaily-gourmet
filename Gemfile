@@ -48,6 +48,9 @@ gem "devise"
 gem "omniauth"
 gem "active_model_serializers"
 
+# AWS SDK for Active Storage S3 integration
+gem "aws-sdk-s3", require: false
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
