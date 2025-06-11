@@ -174,7 +174,7 @@ Rails.application.routes.draw do
 
   # CDN routes
   direct :cdn_image do |model|
-    if model =~ /placeholder.jpg/
+    if model.is_a?(String) && model =~ /placeholder.jpg/
       model
     elsif model.respond_to?(:signed_id)
       route_for(
