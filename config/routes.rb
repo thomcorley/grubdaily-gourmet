@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "hello#home"
 
-  # devise_for :users
+  devise_for :users
   get "login", to: redirect("users/sign_in")
   get "logout", to: redirect("users/sign_out")
   get "signup", to: redirect("users/sign_up")
