@@ -15,8 +15,4 @@ test:
 
 production:
   <<: *default
-  database: grubdaily
-  url: db-postgresql-lon1-36753-do-user-7372705-0.b.db.ondigitalocean.com
-  port: 25060
-  username: grubdaily
-  password: <%= Rails.application.credentials.dig(:production, :postgres, :database_password) %>
+  url: <%= ENV["DATABASE_URL"] %>
