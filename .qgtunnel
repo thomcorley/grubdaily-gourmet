@@ -1,0 +1,6 @@
+
+[qgtunnel.0]
+accept = "127.0.0.1:25060"
+connect = "db-postgresql-lon1-36753-do-user-7372705-0.b.db.ondigitalocean.com:25060"
+encrypted = false
+transparent = true
