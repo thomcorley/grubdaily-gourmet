@@ -9,6 +9,8 @@ class RecipesController < ApplicationController
     @recipes = Recipe.all.order(updated_at: :asc)
   end
 
+  MethodStepStruct = Data.define(:method_step, :description)
+
   def show
     unless @recipe
       render :file => "#{Rails.root}/public/404.html",  layout: false, status: :not_found
@@ -22,10 +24,7 @@ class RecipesController < ApplicationController
     end
 
     @method_steps_with_description = @recipe.method_steps.order(:position).map do |method_step|
-      OpenStruct.new(
-        method_step: method_step,
-        description: MarkdownConverter.convert(method_step.description)
-      )
+      MethodStepStruct.new(method_step, MarkdownConverter.convert(method_step.description))
     end
 
     @ingredient_entries = @recipe.ingredient_entries

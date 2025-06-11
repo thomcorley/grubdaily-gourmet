@@ -5,7 +5,7 @@ class Ingredient < ApplicationRecord
   has_many :ingredient_entries, through: :ingredient_entry_ingredient_sources
   has_one_attached :image
 
-  enum animal_status: [:vegan, :vegetarian, :pescatarian, :omnivorous], _prefix: true
+  enum :animal_status, [:vegan, :vegetarian, :pescatarian, :omnivorous], prefix: true
 
   validates :name, presence: true
   validates :animal_status, presence: true
