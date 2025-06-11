@@ -181,7 +181,7 @@ Rails.application.routes.draw do
         :rails_service_blob_proxy,
         model.signed_id,
         model.filename,
-        host: Rails.configuration.active_storage.cdn_host || ENV['CDN_HOST']
+        host: Rails.configuration.active_storage.cdn_host || ENV['CDN_HOST'] || Rails.configuration.active_storage.host || Rails.application.default_url_options[:host]
       )
     else
       signed_blob_id = model.blob.signed_id
@@ -193,7 +193,7 @@ Rails.application.routes.draw do
         signed_blob_id,
         variation_key,
         filename,
-        host: Rails.configuration.active_storage.cdn_host || ENV['CDN_HOST']
+        host: Rails.configuration.active_storage.cdn_host || ENV['CDN_HOST'] || Rails.configuration.active_storage.host || Rails.application.default_url_options[:host]
       )
     end
   end

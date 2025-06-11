@@ -57,7 +57,13 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  config.action_mailer.default_url_options = { host: "grubdaily-a18d67384d57.herokuapp.com" }
+
+  # Set default URL options for the application
+  Rails.application.default_url_options = { host: "grubdaily-a18d67384d57.herokuapp.com" }
+
+  # Configure ActiveStorage host
+  config.active_storage.host = "grubdaily-a18d67384d57.herokuapp.com"
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
