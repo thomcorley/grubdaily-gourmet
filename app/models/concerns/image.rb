@@ -60,7 +60,9 @@ module Image
     if send(image_method).attached?
       if SQUARE_VARIANTS.include?(size)
         image_object.variant(
-          resize_to_fill: [size[0], size[1], { gravity: "north" }],
+          thumbnail: "#{size[0]}x#{size[1]}",
+          crop: :attention,
+          gravity: "north",
           format: :webp
         ).processed
       elsif LANDSCAPE_VARIANTS.include?(size)
