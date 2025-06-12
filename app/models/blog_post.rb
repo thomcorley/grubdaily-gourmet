@@ -83,7 +83,7 @@ class BlogPost < ApplicationRecord
     attached_images.each do |image|
 
       IMAGE_VARIANTS.each do |size|
-        resolved_image(image, size).processed
+        resolved_image(image, size)
       end
     end
   end

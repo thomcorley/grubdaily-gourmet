@@ -101,7 +101,7 @@ class Recipe < ApplicationRecord
     return unless image_attached?
 
     IMAGE_VARIANTS.each do |size|
-      resolved_image(image, size).processed
+      resolved_image(image, size)
     end
   end
 
