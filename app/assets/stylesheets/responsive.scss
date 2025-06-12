@@ -109,20 +109,6 @@
       }
     }
   }
-
-  // Adjust main content spacing for fixed header
-  .main-body-container {
-    margin-top: 6rem; // Slightly more space for fixed header
-
-    &.recipe,
-    &.blog-post {
-      margin-top: 6rem; // Override the desktop values
-    }
-
-    &.home-page {
-      margin-top: 6rem; // Override the desktop values
-    }
-  }
 }
 
 @include media-query($on-tablet) {
