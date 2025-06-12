@@ -58,13 +58,14 @@ module Image
     image_method = self.is_a?(BlogPost) ? :attached_images : :image
 
     if send(image_method).attached?
-      if SQUARE_VARIANTS.include?(size)
+      is_square = size[0] == size[1]
+      if is_square
         image_object.variant(
           resize_to_fill: size,
           gravity: "north",
           format: :webp
         ).processed
-      elsif LANDSCAPE_VARIANTS.include?(size)
+      else
         image_object.variant(resize_to_limit: [size[0], size[1]], format: :webp).processed
       end
     else
