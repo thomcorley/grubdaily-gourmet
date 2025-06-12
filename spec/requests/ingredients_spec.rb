@@ -4,7 +4,21 @@ RSpec.describe "Ingredients", type: :request do
 
   let(:ingredient_name) { 'carrot' }
 
-  before(:each) { stub_nutrition_request(ingredient_name) }
+  before(:each) do
+    # Stub the class method on Nutrition::Api to prevent real HTTP calls
+    allow(Nutrition::Api).to receive(:get_json).and_return({
+      calories: { amount: 34.0, unit: "kcal" },
+      total_fat: { amount: 0.2, unit: "g" },
+      saturated_fat: { amount: 0.0, unit: "g" },
+      protein: { amount: 0.8, unit: "g" },
+      sodium: { amount: 57, unit: "mg" },
+      potassium: { amount: 30, unit: "mg" },
+      cholesterol: { amount: 0, unit: "mg" },
+      carbohydrates: { amount: 8.3, unit: "g" },
+      fibre: { amount: 3.0, unit: "g" },
+      sugar: { amount: 3.4, unit: "g" }
+    }.to_json)
+  end
 
   describe "GET /ingredients" do
     it "returns a successful response" do
@@ -51,32 +65,5 @@ RSpec.describe "Ingredients", type: :request do
       post ingredients_path, params: { ingredient: { name: '' } }
       expect(response).to render_template(:new)
     end
-  end
-
-  def stub_nutrition_request(ingredient_name)
-    url = "https://api.api-ninjas.com/v1/nutrition?query=#{ingredient_name}"
-
-    headers = {
-      headers: {
-        "X-Api-Key"=> Nutrition::Api::KEY
-      }
-    }
-
-    body = [{
-      name: "carrot",
-      calories: 34.0,
-      serving_size_g: 100.0,
-      fat_total_g: 0.2,
-      fat_saturated_g: 0.0,
-      protein_g: 0.8,
-      sodium_mg: 57,
-      potassium_mg: 30,
-      cholesterol_mg: 0,
-      carbohydrates_total_g: 8.3,
-      fiber_g: 3.0,
-      sugar_g: 3.4
-    }]
-
-    allow(HTTParty).to receive(:get).with(url, headers).and_return(body)
   end
 end

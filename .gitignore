@@ -37,3 +37,4 @@
 /config/credentials/environment.key
 /node_modules
 .DS_Store
+/spec/examples.txt

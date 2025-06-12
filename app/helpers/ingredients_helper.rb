@@ -4,7 +4,7 @@ module IngredientsHelper
       "@context": "http://schema.org",
       "@type": "Article",
       headline: "#{@ingredient.name.capitalize} – Culinary History, Botanical Notes and Nutrition",
-      url: Rails.application.default_url_options[:host] + "/ingredient/#{@ingredient.name.downcase}",
+      url: "#{request.base_url}/ingredient/#{@ingredient.name.downcase}",
       author: {
         "@type": "Person",
         name: "Tom Corley",
@@ -38,7 +38,7 @@ module IngredientsHelper
   #
   # Returns String
   def nutrition_quantity(data, serves=nil)
-    return '0' if data['amount'].zero?
+    return '0' if data['amount'].blank? || data['amount'].zero?
 
     amount = data['amount'].round(1)
     unit = data['unit']
@@ -57,7 +57,7 @@ module IngredientsHelper
   #
   # Returns Float
   def nutrition_daily_value(nutrient, data, serves=nil)
-    return '0%' if data['amount'].zero?
+    return '0%' if data['amount'].blank? || data['amount'].zero?
 
     amount = if serves
       data['amount'] / serves

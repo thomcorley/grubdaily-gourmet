@@ -51,6 +51,8 @@ gem "active_model_serializers"
 # AWS SDK for Active Storage S3 integration
 gem "aws-sdk-s3", require: false
 
+gem "httparty"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -81,4 +83,5 @@ group :test do
   gem "capybara-screenshot"
   gem "webmock"
   gem "database_cleaner-active_record"
+  gem "rails-controller-testing"
 end
