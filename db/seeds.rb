@@ -32,7 +32,6 @@ recipes_data.each do |recipe_data|
 
     entry_content = recipe_data['introduction']
     entry_excerpt = recipe_data['summary']
-    entry_slug = recipe_data['slug']
 
     tags = []
     if recipe_data['category'].present?
@@ -42,15 +41,7 @@ recipes_data.each do |recipe_data|
       tags << Tag.find_or_create_by!(name: recipe_data['recipe_type'].downcase)
     end
 
-    entry = Entry.create!(
-      content: entry_content,
-      summary: entry_excerpt,
-      slug: entry_slug,
-      tags: tags.uniq
-    )
-
-    recipe = entry.create_entryable!(
-      type: 'Recipe',
+    recipe = Recipe.new(
       title: recipe_data['title'],
       total_time: recipe_data['total_time'],
       serves: recipe_data['serves'],
@@ -59,6 +50,14 @@ recipes_data.each do |recipe_data|
       published_at: recipe_data['published_at'],
       marked_for_promotion_at: recipe_data['marked_for_promotion_at']
     )
+
+    recipe.build_entry(
+      content: entry_content,
+      summary: entry_excerpt,
+      tags: tags.uniq
+    )
+
+    recipe.save!
 
     image_url = recipe_data.dig('images', 'main', 'large')
     if image_url.present? && image_url.start_with?('http')

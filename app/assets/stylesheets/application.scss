@@ -62,11 +62,15 @@ body {
 
 section.grey-section {
   background-color: $grey-color-lightest;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 section.white-section {
   background-color: white;
   padding-bottom: 25px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 
   &.newest-recipes {
     padding-bottom: 50px;
@@ -133,7 +137,7 @@ input.button.is-success {
 hr {
   height: 15px;
   border: 0;
-  margin-top: 0;
+  margin: 2rem 0;
 }
 
 .hashtags {
@@ -160,9 +164,9 @@ h2 {
   font-size: 32px;
 }
 
-h3 {
-  font-size: 24px;
-}
+// h3 {
+//   font-size: 24px;
+// }
 
 h4 {
   font-size: 22px;
@@ -687,8 +691,6 @@ header {
 }
 
 .post.single .first-paragraph {
-  padding-top: 1rem;
-
   p:first-letter {
     color: $green-colour;
     float: left;
@@ -937,6 +939,10 @@ header {
       margin-top: 1rem;
       line-height: 28px;
       text-align: justify;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
 
       &>code {
         font-size: 14px;
