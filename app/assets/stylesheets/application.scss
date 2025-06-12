@@ -1,25 +1,31 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_self
- *= require_tree .
- */
-
 @use "bulma";
+@use "bulma/sass/utilities/mixins";
 @import "vars";
 @import "reset";
 @import "helpers";
 @import "mixins";
 @import "customscroll";
+@import "hero-background-images";
+@import "home";
+@import "recipes";
+@import "blog_posts";
+@import "collections";
+@import "tags";
+@import "search";
+@import "ingredient";
+@import "digested_reads";
+@import "email_subscribers";
+@import "subscribe_form";
+@import "call_to_action_banner";
+@import "entry_grid_tall";
+@import "full_recipes";
+@import "image_uploads";
+@import "ingredient_entries";
+@import "ingredient_sets";
+@import "method_steps";
+@import "recipe_collections";
+@import "recipe_imports";
+@import "autocomplete";
 
 // Global styles
 

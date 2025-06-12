@@ -4,7 +4,7 @@
 .recipe-page.section.white-section {
   padding-top: 2rem;
 
-  @include mobile {
+  @include mixins.mobile {
     padding-top: 0.5rem;
   }
 }
@@ -98,7 +98,7 @@
 .recipe-nutrition {
   width: 80%;
 
-  @include mobile {
+  @include mixins.mobile {
     width: 100%;
   }
 

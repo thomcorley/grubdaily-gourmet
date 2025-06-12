@@ -8,11 +8,11 @@
   .section-title.truncated{
     margin: auto;
 
-    @include mobile {
+    @include mixins.mobile {
       max-width: 300px;
     }
 
-    @include tablet {
+    @include mixins.tablet {
       max-width: 550px;
     }
   }
