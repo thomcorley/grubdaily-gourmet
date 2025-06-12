@@ -58,12 +58,14 @@ module Image
     image_method = self.is_a?(BlogPost) ? :attached_images : :image
 
     if send(image_method).attached?
-      image_object.variant(
-        resize_to_fill: size,
-        convert: :webp,
-        format: :webp,
-        gravity: "north"
-      )
+      if SQUARE_VARIANTS.include?(size)
+        image_object.variant(
+          resize_to_fill: [size[0], size[1], { gravity: "north" }],
+          format: :webp
+        ).processed
+      elsif LANDSCAPE_VARIANTS.include?(size)
+        image_object.variant(resize_to_limit: [size[0], size[1]], format: :webp).processed
+      end
     else
       "/images/placeholder.jpg"
     end

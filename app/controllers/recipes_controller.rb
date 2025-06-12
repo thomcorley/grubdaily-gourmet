@@ -150,12 +150,13 @@ class RecipesController < ApplicationController
     Rails.cache.delete("sitemap_entries")
     expire_tags
     Rails.cache.delete("recipe_#{@recipe.id}")
-    Rails.cache.delete_matched("recipe_*")
   end
 
   def expire_tags
-    @recipe.tags.map(&:name).each do |tag_name|
-      Rails.cache.delete("tag_#{tag_name}")
+    if @recipe.tags.any?
+      @recipe.tags.map(&:name).each do |tag_name|
+        Rails.cache.delete("tag_#{tag_name}")
+      end
     end
   end
 

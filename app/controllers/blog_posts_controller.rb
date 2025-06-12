@@ -156,7 +156,6 @@ class BlogPostsController < ApplicationController
     Rails.cache.delete("sitemap_entries")
     expire_tags
     Rails.cache.delete("blog_post_#{@blog_post.id}")
-    Rails.cache.delete_matched("blog_post_*")
   end
 
   def expire_tags
