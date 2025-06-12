@@ -1,0 +1,60 @@
+<%
+  loading ||= "lazy"
+  class_name ||= ""
+  entry ||= image.record
+  remove_on_error ||= false
+  caption ||= nil
+  title ||= nil
+
+  filepath = if version == Image::MAIN || version == Image::CAROUSEL
+    "/images/placeholder.jpg"
+  else
+    "/images/placeholder-square.jpg"
+  end
+%>
+
+<picture class="image-container">
+  <source
+    class="entry-image-source-<%= entry.id %>"
+    media="(max-width: 450px)"
+    srcset="<%= cdn_image_url(entry.resolved_image(image, version[0])) %>"
+    width="<%= version[0][0] %>px"
+    height="<%= version[0][1] %>px"
+  />
+
+  <source
+    class="entry-image-source-<%= entry.id %>"
+    media="(max-width: 600px)"
+    srcset="<%= cdn_image_url(entry.resolved_image(image, version[1])) %>"
+    width="<%= version[1][0] %>px"
+    height="<%= version[1][1] %>px"
+  />
+
+  <source
+    class="entry-image-source-<%= entry.id %>"
+    media="(min-width: 601px)"
+    srcset="<%= cdn_image_url(entry.resolved_image(image, version[2])) %>"
+    width="<%= version[2][0] %>px"
+    height="<%= version[2][1] %>px"
+  />
+
+  <%= image_tag(
+    cdn_image_url(entry.resolved_image(image, version[2])),
+    alt: "#{entry.title} image",
+    title: title,
+    width: "#{version[2][0]}px",
+    height: "#{version[2][1]}px",
+    loading: loading,
+    class: class_name,
+    data: {
+      entry_id: entry.id,
+      default_image: filepath,
+      remove_on_error: remove_on_error == true
+    },
+    onerror: "this.onerror = null; handleImageLoadError(this.dataset.entryId, this.dataset.defaultImage, this.dataset.removeOnError);"
+  )%>
+
+  <% if caption %>
+    <figcaption class="caption"><%= caption %></figcaption>
+  <% end %>
+</picture>

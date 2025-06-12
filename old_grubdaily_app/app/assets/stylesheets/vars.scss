@@ -1,0 +1,40 @@
+// Fonts
+$header-font:                   'Lato';
+
+// Colour Palette
+$green-colour:                  #0A7147; // TODO: change this to $dark-spring-green
+$light-green:                   #e6f0ec;
+$medium-blue:                   #466478;
+$lapis-lazuli:                  #2660A4;
+$grubdaily-grey:                #233D4D; // TODO: change this to $charcoal
+$naples-yellow:                 #FFE066;
+$light-yellow:                  #fffae8;
+$corneli-red:                   #BF211E;
+
+// Sizing
+$default-width:                 1200px;
+$default-height:                800px;
+$on-tablet:                     768px;
+$on-smaller-tablets:            640px;
+$on-phone:                      480px;
+$container-max-width:           960px;
+$section-padding:               2rem 0.5rem;
+
+// Misc. Colours (TODO: a lot of these can be removed)
+$grey-color-dark:               #404040;
+$black:                         #000;
+$white:                         #fff;
+$grey-color-normal:             #555;
+$grey-color-light:              #aaa;
+$grey-color-lighter:            #ccc;
+$grey-color-lightest:           #f5f7f7;
+$dark-red:                      #903;
+$links-color:                   #6d9654;
+$links-color-hover:             #6d9654;
+$featured-article-btn-bluish:   #48515e;
+$featured-article-btn-reddish:  #bb7056;
+$recipe-background-color:       rgba(255,252,192, 0.13);
+$recipe-horizontal-lines:       rgba(113,113,114,0.14);
+$recipe-vertical-lines:         rgba(113,113,114,0.5);
+$recipe-text-color:             #71664f;
+$recipe-list-stack:             #c5c4b6;

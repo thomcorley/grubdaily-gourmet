@@ -1,0 +1,215 @@
+<% content_for :head do %>
+  <% title("#{@recipe.title} – Recipe") %>
+  <% meta_tag :description, @recipe.summary %>
+
+  <% if @recipe.title == "Peanut Caramel" %>
+    <meta name="robots" content="noindex">
+  <% end %>
+
+  <script type="application/ld+json"><%= recipe_json_schema %></script>
+  <!-- TODO: add url method to recipe -->
+  <!-- <meta property="og:url" content="<%= %>" /> -->
+  <meta property="og:title" content="<%= @recipe.title %>"/>
+  <meta property="og:image" content="<%= recipe_image %>"/>
+  <meta property="og:description" content="<%= @recipe.summary %>"/>
+  <meta property="og:url" content="<%= "https://www.grubdaily.com#{@recipe.permalink}" %>"/>
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="627" />
+  <!-- TYPE BELOW IS PROBABLY: 'website' or 'article' or look on https://ogp.me/#types -->
+  <meta property="og:type" content="website"/>
+<% end %>
+
+<% content_for(:body_container_additional_class, "recipe") %>
+
+<turbo-frame id="recipe" target="_top">
+  <section class="section is-small white-section recipe-page">
+      <div class="container">
+        <article class="post single" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+          <% if @recipe.image.attached? %>
+            <div class="header-image is-flex is-justify-content-center">
+              <p>
+                <%= render "shared/image",
+                  image: @recipe.image,
+                  version: Image::MAIN,
+                  loading: "eager"
+                %>
+              </p>
+            </div>
+            <% end %>
+
+          <header class="post-header">
+            <div class="entry-type">
+              <%= @recipe.class.to_s.tableize.humanize.singularize.upcase %>
+            </div>
+
+            <h1 class="post-title" itemprop="name headline"><%= @recipe.title %></h1>
+
+            <div class="post-meta">
+              <time datetime="<%= @recipe.display_date.to_datetime %>" itemprop="datePublished">
+                <%= @recipe.display_date.strftime("%-d %b %Y") %>
+              </time>
+              <% if admin_session? %>
+                <% if @recipe.published? %>
+                  <p class="has-text-centered published-tag">Published</p>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="post-meta">
+              <span class="tags">
+                <% @tags.each do |tag| %>
+                  <span><b><%= link_to(tag.name, tag_path(tag_name: tag.name)) %></b></span>
+                <% end %>
+              </span>
+            </div>
+          </header>
+
+          <div class="post-content" itemprop="text">
+            <div class="first-paragraph">
+              <p><%= simple_format(@introduction_paragraphs.first) %></p>
+            </div>
+
+            <% @introduction_paragraphs.drop(1).each do |paragraph| %>
+              <p><%= simple_format(paragraph) %></p>
+            <% end %>
+
+            <hr class="recipe-line-break">
+
+            <h2 class="is-size-3 recipe-section-title">
+              <%= @recipe.title %>
+              Recipe
+            </h2>
+
+            <div class="post-meta serves-or-makes">
+              <div><%= serves_or_makes_text %></div>
+            </div>
+
+            <div data-controller="recipes--ingredients">
+              <h2 class="ingredient-set-title mb-4">Ingredients</h2>
+              <% @ingredient_sets.each do |ingredient_set| %>
+                <% if ingredient_set.title.present?  %>
+                  <h3 class="ingredient-set-title is-size-5 mt-2"><em><%= ingredient_set.title %></em></h3>
+                <% end %>
+
+                <ul class="recipe-ingredients" data-recipes--ingredients-target="entries">
+                  <% ingredient_set.ordered_ingredient_entries.each do |entry| %>
+                    <%= ingredient_entry_tag(entry) %>
+                  <% end %>
+                </ul>
+
+                <% if admin_session?  %>
+                <div class="edit-recipe-button mb-5">
+                  <%= link_to "Edit ingredient set", edit_recipe_ingredient_set_path(@recipe, ingredient_set), class: "button is-small" %>
+                  <%= link_to "New ingredient entry", new_recipe_ingredient_set_ingredient_entry_path(@recipe, ingredient_set), class: "button is-small" %>
+                </div>
+                <% end %>
+              <% end %>
+            </div>
+
+            <% if admin_session?  %>
+              <div class="edit-recipe-button mt-5">
+                <%= link_to "New ingredient set", new_recipe_ingredient_set_path(@recipe), class: "button is-small" %>
+              </div>
+            <% end  %>
+
+            <hr class="recipe-line-break">
+
+            <div class="method-steps">
+              <h2 class="method-steps-title">Method</h2>
+              <ol>
+                <% @method_steps_with_description.each do |obj| %>
+                  <li id="method_step_<%= obj.method_step.id %>">
+                    <p>
+                      <%= simple_format(obj.description) %>
+                      <% if admin_session?  %>
+                        <%= link_to edit_recipe_method_step_path(@recipe.id, obj.method_step.id) do %>
+                          <span class="icon is-small">
+                            <i class="fas fa-pen"></i>
+                          </span>
+                        <% end %>
+                      <% end %>
+                    </p>
+                  </li>
+                <% end %>
+
+                <% if admin_session?  %>
+                  <div class="edit-recipe-button">
+                    <%= link_to "New method step", new_recipe_method_step_path(@recipe), class: "button is-small" %>
+                  </div>
+                <% end %>
+              </ol>
+            </div>
+          </div>
+        </article>
+      </div>
+  </section>
+
+  <% if @recipe.nutrition.present? && @recipe.show_nutrition? %>
+    <section class="section pt-0">
+      <div class="container">
+        <div class="column is-flex is-justify-content-center">
+          <div class="recipe-nutrition has-text-left is-flex is-flex-direction-column">
+            <div class="container">
+              <div class="section-title">
+                <h2 class="is-size-3 has-text-centered has-text-left-tablet">Nutrition</h2>
+              </div>
+            </div>
+
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth mb-0">
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td>Per serving</td>
+                  <td>Daily Value</td>
+                </tr>
+
+                <% JSON.parse(@recipe.nutrition).each do |name, data| %>
+                  <tr>
+                    <td>
+                      <%= name.humanize.capitalize %>
+                    </td>
+                    <td><%= nutrition_quantity(data, @recipe.serves) %></td>
+                    <td><%= nutrition_daily_value(name, data, @recipe.serves) %></td>
+                  </tr>
+                <% end  %>
+              </tbody>
+            </table>
+
+            <div class="nutrition-attribution px-1 has-text-right">
+              <em>Powered by <a href="https://www.nutritionix.com/" target="_blank">Nutritionix</a></em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
+  <% if @recipe.peanut_caramel_recipe?  %>
+    <section class="section">
+      <div class="container call-to-action-banner yellow-background">
+        <div class="content">
+          <h2 class="is-size-2 has-text-centered">Peanut Caramel</h2>
+
+          <p>If you want to make this delicious recipe you'll need some Peanut Caramel. I'm proud to say I've started a side business selling jars of it. It's one of the most moreish, delicious things I've ever tasted and it's really versatile for making desserts and sweet treats. <a href="https://grubdailygourmet.myshopify.com/products/peanut-caramel-200g" target="_blank">Head on over to the shop </a> and get yourself a jar or two :)</p>
+
+          <p>Read more about Peanut Caramel and the journey so far <a href="https://www.grubdaily.com/posts/the-peanut-caramel-story" target="_blank">in my blog post</a>.</p>
+
+          <p>And... as a special treat to you, a valued reader of this blog, you can enter the code <strong>PEANUTCARAMELPALS</strong> at checkout for a 15% discount!</p>
+
+          <div class="has-text-centered">
+            <%= link_to "Buy Peanut Caramel", "https://grubdailygourmet.myshopify.com/products/peanut-caramel-200g", class: "button is-success", target: "_blank" %>
+          </div>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
+  <% if @other_recipes.size >= 3 %>
+    <section class="section grey-section">
+      <% if @recipe.related_entries.any? %>
+        <%= render "shared/entry_grid_tall", entries: @other_recipes, title: @recipe.related_recipes_heading || 'Check out more recipes' %>
+      <% else %>
+        <%= render "shared/entry_grid_tall", entries: @other_recipes, title: 'Check out more recipes' %>
+      <% end %>
+    </section>
+  <% end %>
+</turbo-frame>

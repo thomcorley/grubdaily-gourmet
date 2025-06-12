@@ -1,0 +1,20 @@
+test:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>
+
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+
+amazon:
+  service: S3
+  access_key_id: <%= Rails.application.credentials.aws.access_key_id %>
+  secret_access_key: <%= Rails.application.credentials.aws.secret_access_key %>
+  region: eu-west-2
+  bucket: grubdaily
+  public: true
+  http_open_timeout: 10
+  http_read_timeout: 10
+  retry_limit: 5
+  upload:
+    cache_control: "max-age=1209600, public"

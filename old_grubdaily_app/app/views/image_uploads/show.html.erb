@@ -1,0 +1,85 @@
+<% content_for :head do %>
+  <% title("#{@image_upload.title} – Image") %>
+  <% meta_tag :description, @image_upload.description %>
+<% end %>
+
+<turbo-frame id="image-upload" target="_top">
+  <section class="section is-small white-section image-upload-page">
+    <div class="container">
+      <article class="post single">
+        <% if @image_upload.image.attached? %>
+          <div class="header-image is-flex is-justify-content-center">
+            <p>
+              <%= render "shared/image",
+                image: @image_upload.image,
+                version: Image::MAIN,
+                loading: "eager"
+              %>
+            </p>
+          </div>
+
+          <header class="post-header">
+            <div class="entry-type">
+              IMAGE
+            </div>
+
+            <h1 class="is-size-1 post-title" itemprop="name headline"><%= @image_upload.title %></h1>
+          </header>
+
+          <% if @image_upload.description %>
+            <div class="my-4 container">
+              <p><strong>Description</strong></p>
+              <p><%= @image_upload.description %></p>
+            </div>
+          <% end %>
+
+          <% if @image_upload.website_url %>
+            <div class="my-4 container">
+              <p><strong>Website URL</strong></p>
+              <p><a href="<%= @image_upload.website_url %>" target="_blank"><%= @image_upload.website_url %></a></p>
+            </div>
+          <% end %>
+
+          <% if @image_upload.published_at %>
+            <div class="my-4 container">
+              <p><strong>Published on</strong></p>
+              <p><%= @image_upload.published_at.strftime("%Y-%m-%d") %></p>
+            </div>
+          <% end %>
+
+          <hr>
+
+          <h2 class="is-size-4 has-text-centered">Other variants</h2>
+
+          <div class="my-4">
+            <%= render "shared/image",
+              image: @image_upload.image,
+              version: Image::TINY_SQUARE,
+              loading: "eager",
+              title: "Tiny square"
+            %>
+          </div>
+
+          <div class="my-4">
+            <%= render "shared/image",
+              image: @image_upload.image,
+              version: Image::SMALL_SQUARE,
+              loading: "eager",
+              title: "Small square"
+            %>
+          </div>
+
+          <div class="my-4">
+            <%= render "shared/image",
+              image: @image_upload.image,
+              version: Image::MEDIUM_SQUARE,
+              loading: "eager",
+              title: "Medium square"
+            %>
+          </div>
+
+        <% end %>
+      </article>
+    </div>
+  </section>
+</turbo-frame>

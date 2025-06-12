@@ -1,0 +1,165 @@
+<% content_for :head do %>
+  <script src="https://kit.fontawesome.com/35cac145b0.js" crossorigin="anonymous"></script>
+  <meta name="robots" content="noindex">
+  <%= javascript_include_tag "https://www.google.com/recaptcha/api.js?render=#{recaptcha_site_key}&onload=recaptchaOnloadCallback&render=explicit", async: true, defer: true %>
+<% end %>
+
+<section class="delicious">
+  <main role="main">
+    <article class="page single shop" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+      <div class="container">
+        <header class="post-header">
+          <h2 class="post-title" itemprop="name headline">Menu</h2>
+        </header>
+        <div class="page-content block">
+          <p>
+            The mushroom season is underway, with beautiful yellow chanterelles making their appearance in woodlands across the country. In addition to fresh wild mushrooms, we are also developing some unique and interesting products to sell, so watch this space.
+          </p>
+
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <%= image_tag("scottish-chanterelles", title: "Scottish Chanterelles", alt: "Scottish Chanterelles Photo") %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <p class="title is-4">Scottish Chanterelles (cleaned)</p>
+              <p class="title is-5">£10 / 250g</p>
+
+              <div class="content">
+                <p>
+                  The golden bounty of Scotland's forests – wild chanterelles sourced from the Scottish Borders and Perthshire. The season runs from July to October but we will have a limited supply.
+                </p>
+
+                <p>
+                  Depending on availability, we can sell by the kilogram at wholesale price. Get in touch via the contact form below to discuss further.
+                </p>
+              </div>
+            </div>
+          </div>
+
+<!--           <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <%= image_tag("sourdough", title: "Sourdough Loaf", alt: "Sourdough Loaf Photo") %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <p class="title is-4">Rye/Wheat Sourdough Loaf</p>
+              <p class="title is-5">£3.80</p>
+
+              <div class="content">
+                <p>
+                  Wholemeal rye starter is mixed with unbleached white flour, water and sea salt for this medium-crusty loaf. The slow cold fermentation process gives it a wonderful depth of flavour and a delectable texture.
+                </p>
+              </div>
+            </div>
+          </div> -->
+
+          <br>
+          <br>
+
+          <% flash.each do |type, msg| %>
+            <div id="form-errors" class="block" style="color: red;">
+              <%= msg %>
+            </div>
+          <% end %>
+
+          <%= form_with scope: :contact_form_message,
+            url: contact_form_messages_path,
+            local: true,
+            data: { controller: "contact-form" },
+            id: "contact-form" do |form|
+          %>
+            <!-- This avoids a nilClass error when accessing the local `errors`
+                variable passed back from the controller -->
+            <% errors = nil unless errors %>
+
+            <%= hidden_field_tag :re_captcha, :re_captcha_token %>
+
+            <div class="field">
+              <div class="control has-icons-left">
+                <%= form.text_field :name,
+                  required: true,
+                  class: "input form-field",
+                  id: "first-form-field",
+                  placeholder: "Name",
+                  autocomplete: "name",
+                  data: { contact_form_target: "name" }
+                %>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control has-icons-left">
+                <%= form.email_field :email,
+                  required: true,
+                  class: "input form-field email",
+                  placeholder: "Email",
+                  autocomplete: "email",
+                  data: { contact_form_target: "email" }
+                %>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope-square"></i>
+                </span>
+              </div>
+            </div>
+
+            <% if errors && errors[:email].include?("invalid") %>
+              <div data-contact-form-target="emailError" class="email-error form-error-message block">
+                Email is invalid
+              </div>
+            <% end %>
+
+            <div class="field">
+              <div class="control">
+                <%= form.text_area :message,
+                  required: true,
+                  class: "textarea form-field",
+                  placeholder: "Message"
+                %>
+              </div>
+            </div>
+
+            <div data-contact-form-target="subscribeCheckbox" class="field" id="subscribe-checkbox">
+              <div class="control">
+                <label class="checkbox">
+                  <%= form.check_box :subscribe %>
+                  I would like to receive grubdaily blog updates
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control actions">
+                <%= form.submit "Submit",
+                  class: "button is-fullwidth is-success g-recaptcha",
+                    "data-sitekey" => recaptcha_site_key,
+                    "data-callback" => "onSubmit",
+                    "data-action" => "submit"
+                %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </article>
+  </main>
+</section>
+
+<script>
+  var recaptchaOnloadCallback = function() {
+    var re_captcha_token = "<%= recaptcha_site_key %>";
+
+    grecaptcha.execute(re_captcha_token).then(function(token) {
+        document.getElementById("re_captcha").value = token;
+      });
+  }
+
+  function onSubmit(token) {
+    document.getElementById("contact-form").submit();
+  }
+</script>

@@ -1,0 +1,74 @@
+@import "vars";
+
+.ingredient {
+  &.section {
+    padding-top: 1rem;
+  }
+
+  .post.single {
+    .entry-type {
+      padding: 0;
+      font-size: 0.8rem;
+    }
+
+    p {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .ingredient-recipes {
+    padding-top: 0.75rem;
+  }
+
+  .post.single .first-paragraph {
+    p:first-letter {
+      all: unset;
+    }
+  }
+
+  .post.single {
+    p {
+      margin: 0;
+    }
+  }
+
+  .nutrition {
+    display: flex;
+    width: 80%;
+
+    .section-title {
+      padding-bottom: 1rem;
+    }
+  }
+
+  .ingredient-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  @include mobile {
+    .nutrition {
+      justify-content: center;
+      padding-top: 1.5rem;
+      width: 100%;
+    }
+
+    .ingredient-image {
+      justify-content: center;
+    }
+  }
+
+  .pagination {
+    margin: 0;
+  }
+}
+
+.ingredient-form {
+  .textarea {
+    height: 400px;
+
+    &.nutrition-field {
+      height: 600px;
+    }
+  }
+}

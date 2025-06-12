@@ -1,0 +1,36 @@
+---
+title: Best Ever Random Pancakes
+total_time: PT2D4H23M
+serves:
+makes: 45 pancakes
+type: brunch
+category: pancakes
+tags: pancakes, British, tasty brunch, delicious
+summary: "This is my _favourite_ pancakes recipe in the world"
+
+introduction:
+  - "An introduction"
+
+first_ingredient_set:
+  INSERT_TITLE:
+    - 415g warm water
+    - 725 pinches plain flour
+    - 10 carrots
+    - 34 large onions, finely chopped
+    - 1/2 leek
+    - 1/2 handful of pinenuts
+    - 2 x 400g tins tomatoes
+    - 10 carrots, cut into 5mm dice
+    - 100g cavolo nero (black kale)
+
+second_ingredient_set:
+  to finish:
+    - 1 teaspoon icing sugar
+    - sea salt and cracked black pepper
+    - a dash of dried cep powder
+    - vegetable oil, for cooking
+
+
+method_steps:
+  - "First step"
+  - "Second step"

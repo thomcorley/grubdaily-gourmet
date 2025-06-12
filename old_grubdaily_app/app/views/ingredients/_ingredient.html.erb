@@ -1,0 +1,108 @@
+<% content_for :head do %>
+  <script src="https://kit.fontawesome.com/35cac145b0.js" crossorigin="anonymous"></script>
+  <script type="application/ld+json"><%= ingredient_json_schema %></script>
+  <% title("#{ingredient.name.capitalize} – Ingredient Info") %>
+  <% meta_tag :description, "#{ingredient.name.capitalize} ingredient info, culinary history and nutritional information" %>
+<% end %>
+
+<turbo-frame id="ingredient" target="_top">
+  <section class="section ingredient">
+    <div class="container">
+      <article class="post single" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="has-text-center-mobile">
+          <h1 class="post-title ingredient-name is-size-2" itemprop="name headline">
+            <%= ingredient.name.capitalize %>
+          </h1>
+          <div class="entry-type">INGREDIENT INFO</div>
+        </div>
+
+        <section class="white-section has-text-justified">
+          <div class="first-paragraph pt-4">
+            <%= simple_format(@introduction_paragraphs.first) %>
+          </div>
+
+          <% @introduction_paragraphs.drop(1).each do |paragraph| %>
+            <%= simple_format(paragraph, class: "py-2") %>
+          <% end %>
+        </section>
+
+        <section class="white-section">
+          <div class="container pt-3">
+            <div class="columns">
+              <% if @ingredient.image.attached? %>
+                <div class="column is-hidden-desktop is-flex is-justify-content-center is-flex-direction-column">
+                  <div class="container">
+                  </div>
+                  <div class="ingredient-image">
+                    <p>
+                      <%= render "shared/image",
+                        image: @ingredient.image,
+                        version: Image::INGREDIENT,
+                        loading: "eager"
+                      %>
+                    </p>
+                  </div>
+                </div>
+              <% end %>
+
+              <% if @ingredient.nutrition.present? %>
+                <div class="column is-flex is-justify-content-center">
+                  <div class="nutrition has-text-left is-flex is-flex-direction-column">
+                    <div class="container">
+                      <div class="section-title">
+                        <h2 class="is-size-3 has-text-centered has-text-left-tablet">Nutrition</h2>
+                      </div>
+                    </div>
+
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                      <tbody>
+                        <tr>
+                          <td></td>
+                          <td>Per 100 g</td>
+                          <td>Daily Value</td>
+                        </tr>
+
+                        <% JSON.parse(@ingredient.nutrition).each do |name, data| %>
+                          <tr>
+                            <td>
+                              <%= name.humanize.capitalize %>
+                            </td>
+                            <td><%= nutrition_quantity(data) %></td>
+                            <td><%= nutrition_daily_value(name, data) %></td>
+                          </tr>
+                        <% end  %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              <% end %>
+
+              <% if @ingredient.image.attached? %>
+                <div class="column is-hidden-touch is-flex is-justify-content-center is-flex-direction-column">
+                  <div class="container">
+                  </div>
+                  <div class="ingredient-image">
+                    <p>
+                      <%= render "shared/image",
+                        image: @ingredient.image,
+                        version: Image::INGREDIENT,
+                        loading: "eager"
+                      %>
+                    </p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <% if @recipes.size >= 2 %>
+        <section class="section grey-section">
+          <%= render "shared/entry_grid_tall", entries: @recipes, title: ingredient.related_recipes_heading %>
+        </section>
+      <% end %>
+      </div>
+    </article>
+  </div>
+</turbo-frame>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @ingredient_set.title %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @ingredient_set.position %>
+</p>
+
+<%= link_to 'Edit', edit_ingredient_set_path(@ingredient_set) %> |
+<%= link_to 'Back', ingredient_sets_path %>

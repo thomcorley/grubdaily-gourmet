@@ -1,0 +1,89 @@
+@mixin media-query($device) {
+  @media screen and (max-width: $device), screen and (max-device-width: $device) {
+    @content;
+  }
+}
+
+@mixin no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin placeholder($color, $style: normal) {
+  ::-webkit-input-placeholder { color: $color; font-size: 16px; font-style: $style; }
+  :-moz-placeholder { color: $color; opacity: 1; font-size: 16px; font-style: $style; }
+  ::-moz-placeholder { color: $color; opacity: 1; font-size: 16px; font-style: $style; }
+  :-ms-input-placeholder { color: $color; font-size: 16px; font-style: $style; }
+}
+
+@mixin transition($selector, $time, $type) {
+  transition: #{$selector} #{$time} #{$type};
+  -moz-transition: #{$selector} #{$time} #{$type};
+  -webkit-transition: #{$selector} #{$time} #{$type};
+  -o-transition: #{$selector} #{$time} #{$type};
+}
+
+@mixin transition-none() {
+  -moz-transition: none;
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+@mixin translate($val1, $val2) {
+  -webkit-transform: translate(#{$val1}, #{$val2});
+  -moz-transform: translate(#{$val1}, #{$val2});
+  -ms-transform: translate(#{$val1}, #{$val2});
+  -o-transform: translate(#{$val1}, #{$val2});
+  transform: translate(#{$val1}, #{$val2});
+}
+
+@mixin bgsize($type) {
+  -webkit-background-size: $type;
+  -moz-background-size: $type;
+  -o-background-size: $type;
+  background-size: $type;
+}
+
+
+@mixin bgsizeNum($size1, $size2) {
+  -webkit-background-size: $size1 $size2;
+  -moz-background-size: $size1 $size2;
+  -o-background-size: $size1 $size2;
+  background-size: $size1 $size2;
+}
+
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin align-items($align: center) {
+  -webkit-align-items: $align;
+  align-items: $align;
+}
+
+@mixin flex-wrap($value: nowrap) {
+  -webkit-flex-wrap: $value;
+  -moz-flex-wrap: $value;
+  @if $value == nowrap {
+    -ms-flex-wrap: none;
+  } @else {
+    -ms-flex-wrap: $value;
+  }
+  flex-wrap: $value;
+}
+
+@mixin flex($grow: 1, $shrink: 1, $basis: auto) {
+  -webkit-flex: $grow $shrink $basis;
+  -moz-flex: $grow $shrink $basis;
+  -ms-flex: $grow $shrink $basis;
+  flex: $grow $shrink $basis;
+}

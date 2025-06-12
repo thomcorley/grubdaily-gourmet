@@ -1,0 +1,88 @@
+<div class="page-content block">
+  <%= form_with(model: [@recipe, @ingredient_set, @ingredient_entry], local: true, data: { turbo: false }) do |form| %>
+    <% if ingredient_entry.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(ingredient_entry.errors.count, "error") %> prohibited this ingredient_entry from being saved:</h2>
+
+        <ul>
+        <% ingredient_entry.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :ingredient_name, class: "label" %>
+      <div class="control">
+        <%= form.text_field :ingredient_name, id: :recipe_ingredient_name, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :quantity, class: "label" %>
+      <div class="control">
+        <%= form.text_field :quantity, id: :recipe_quantity, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :unit, class: "label" %>
+      <div class="control">
+        <%= form.text_field :unit, id: :recipe_unit, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :size, class: "label" %>
+      <div class="control">
+        <%= form.text_field :size, id: :recipe_size, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :modifier, class: "label" %>
+      <div class="control">
+        <%= form.text_field :modifier, id: :modifier, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :original_string, class: "label" %>
+      <div class="control">
+        <%= form.text_field :original_string, id: :original_string, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :position, class: "label" %>
+      <div class="control">
+        <%= form.number_field :position, id: :position, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.label :quantityless?, class: "label checkbox" do %>
+          <%= form.check_box :quantityless, id: :quantityless, class: "checkbox", hidden: false %>
+          Quantityless?
+        <% end %>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class: "button is-success" %>
+      </div>
+
+      <div class="control">
+        <%= link_to(
+          "Back",
+          edit_recipe_ingredient_set_path(@recipe, @ingredient_entry.ingredient_set),
+          class: "button",
+          data: { turbo_frame: "_top" }
+        )%>
+      </div>
+    </div>
+  <% end %>
+</div>

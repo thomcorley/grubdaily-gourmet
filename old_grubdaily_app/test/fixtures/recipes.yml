@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  summary: MyText
+  total_time: MyString
+  introduction: MyText
+  serves: 1
+  makes: 1
+  makes_unit: MyString
+  type: 
+
+two:
+  title: MyString
+  summary: MyText
+  total_time: MyString
+  introduction: MyText
+  serves: 1
+  makes: 1
+  makes_unit: MyString
+  type: 

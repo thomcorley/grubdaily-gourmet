@@ -1,0 +1,10 @@
+@import "vars";
+@import "bulma";
+
+.blog-post-page.section.white-section {
+  padding-top: 2rem;
+
+  @include mobile {
+    padding-top: 0.5rem;
+  }
+}

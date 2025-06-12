@@ -1,0 +1,13 @@
+@import "vars";
+
+* { box-sizing: border-box; -moz-box-sizing: border-box; }
+body { margin: 0; padding: 0; font: 200 18px/26px 'Lato', sans-serif; color: $grey-color-normal; background: $white; }
+h1, h2, h3, h4, h5, h6 { line-height: normal; margin: 0; }
+dl, dt, dd, ul { margin: 0; padding: 0; list-style: none; }
+ol { margin: 0; padding: 0; }
+form, input, textarea, select { font: 400 16px/16px 'Lato', sans-serif; margin: 0; padding: 0; resize: none; }
+img { max-width: 100%; height: auto; display: block; border: 0; }
+a { text-decoration: none; }
+p { margin: 0; }
+input:focus, textarea:focus, select:focus { outline: none; }
+header, nav, section, main, article, aside, figure, footer, iframe, object, svg { display: block; margin: 0; }

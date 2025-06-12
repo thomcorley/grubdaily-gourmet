@@ -1,0 +1,18 @@
+@import "vars";
+
+#body { background-color: white }
+
+.page.single { border: none; margin-top: 0;
+  .post-header { margin-bottom: 0 }
+  .post-content {
+    a {
+      color: $grey-color-normal;
+      text-decoration: none;
+    }
+    p { margin-top: 5px }
+    h4 { margin: 5px 0 10px 0 }
+  }
+}
+
+
+

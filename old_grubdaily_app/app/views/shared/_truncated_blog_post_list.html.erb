@@ -1,0 +1,7 @@
+<div id="truncated-blog-post-list" class="columns is-multiline is-mobile px-2">
+  <%= render "shared/entry_list", entries: blog_posts %>
+</div>
+
+<% unless blog_posts.last == BlogPost.published.order(created_at: :desc).last %>
+  <%= render "shared/load_more_button", button_text: "Load more posts", path: more_blog_posts_path(page: page) %>
+<% end %>

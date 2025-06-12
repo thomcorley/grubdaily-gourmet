@@ -1,0 +1,178 @@
+<% content_for :head do %>
+  <meta name="robots" content="noindex">
+
+  <script type="module">
+    import { Application } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
+    import AdminEntriesAutocompleteController from "/javascript/controllers/admin_entries_autocomplete_controller.js";
+
+    window.Stimulus = Application.start();
+    AdminEntriesAutocompleteController.init();
+  </script>
+<% end %>
+
+<div class="page-content block">
+  <%= form_with(model: recipe, local: true, data: { turbo: false }) do |form| %>
+    <% if recipe.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+        <ul>
+        <% recipe.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :title, class: "label" %>
+      <div class="control">
+        <%= form.text_field :title, id: :recipe_title, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= link_to(
+        "View recipe as YAML",
+        as_yaml_recipe_path(recipe),
+        class: "button is-small",
+        data: { turbo_frame: "_top" },
+        target: "_blank"
+      )%>
+    </div>
+
+    <div class="field">
+      <label class="label">Hashtags</label>
+      <p class="hashtags"><%= Hashtags.for_entry(@recipe) %></p>
+    </div>
+
+    <% if recipe.image&.attached? %>
+      <div class="field">
+        <p class="label">Image</p>
+        <%= image_tag(@recipe.image.variant(resize_to_limit: [536, 536])) %>
+        <%= link_to(
+          "Delete Image",
+          delete_attachment_path(recipe.image.id),
+          method: :delete,
+          class: "button is-danger is-small",
+          data: { confirm: "Really?", disable_with: "deleting..." }
+        )%>
+      </div>
+    <% else %>
+      <div class="field">
+        <%= form.label :image, class: "label" %>
+        <div class="control">
+          <%= form.file_field :image, id: :recipe_image, class: "input" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :summary, class: "label" %>
+      <div class="control">
+        <%= form.text_field :summary, id: :recipe_summary, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :total_time, class: "label" %>
+      <div class="control">
+        <%= form.text_field :total_time, id: :recipe_total_time, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :introduction, class: "label" %>
+      <div class="control">
+        <%= form.text_area :introduction, id: :recipe_introduction, class: "textarea" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :serves, class: "label" %>
+      <div class="control">
+        <%= form.number_field :serves, id: :recipe_serves, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :makes, class: "label" %>
+      <div class="control">
+        <%= form.number_field :makes, id: :recipe_makes, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :makes_unit, class: "label" %>
+      <div class="control">
+        <%= form.text_field :makes_unit, id: :recipe_makes_unit, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :type, class: "label" %>
+      <div class="control">
+        <%= form.text_field :recipe_type, id: :recipe_type, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :tags, class: "label" %>
+      <div class="control">
+        <%= form.text_field :tag_names, id: :recipe_tags, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :marked_for_promotion_at, class: "label" %>
+      <div class="control">
+        <%= form.date_field :marked_for_promotion_at, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :published_at, class: "label" %>
+      <div class="control">
+        <%= form.date_field :published_at, class: "input" %>
+      </div>
+    </div>
+
+    <%= render "shared/entry_autocomplete_form_field", form: form, entries: @related_entries, entries_field: :related_recipe_ids, field_prefix: :recipe %>
+
+    <div class="field">
+      <%= form.label :related_recipes_heading, class: "label" %>
+      <div class="control">
+        <%= form.text_field :related_recipes_heading, id: :recipe_related_recipes_heading, class: "input", hidden: false %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :show_nutrition, class: "label" %>
+      <div class="control">
+        <%= form.check_box :show_nutrition, id: :recipe_show_nutrition, class: "checkbox", hidden: false %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :nutrition, class: "label" %>
+      <div class="control">
+        <%= form.text_area :nutrition, id: :recipe_nutrition, class: "textarea nutrition-field" %>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class: "button is-success" %>
+      </div>
+
+      <div class="control">
+        <%= link_to(
+          "Back",
+          recipe,
+          class: "button",
+          data: { turbo_frame: "_top" },
+        )%>
+      </div>
+    </div>
+  <% end %>
+</div>

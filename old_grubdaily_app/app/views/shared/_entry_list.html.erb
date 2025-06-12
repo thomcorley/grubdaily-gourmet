@@ -1,0 +1,14 @@
+<% truncate = true unless truncate == false  %>
+
+<% entries.each_with_index do |entry, index| %>
+  <div class="column is-one-third-tablet is-one-quarter-desktop is-half-mobile is-flex is-justify-content-center">
+    <div class="box image-container has-text-centered <%= display_entry_class(entries, index, truncate) %>">
+      <a href="<%= entry.permalink %>" title="<%= entry.title %>">
+        <%= render "shared/image", image: entry.image, version: Image::MEDIUM_SQUARE %>
+        <div class="entry-title is-size-5-tablet is-size-6-mobile">
+          <h3><%= entry.title %></h3>
+        </div>
+      </a>
+    </div>
+  </div>
+<% end %>

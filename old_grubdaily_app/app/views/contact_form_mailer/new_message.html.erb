@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>
+      <img src="https://www.grubdaily.com/images/email-header-logo.png" width="600px" title="grubdaily" alt="grubdaily">
+    </p>
+
+    <h1 style="color: #E5A636;">New contact form message</h1>
+
+    <p style="max-width: 600px;">
+      Message from <%= @contact_form_message.name %> (<%= @contact_form_message.email %>):
+    </p>
+    <p style="max-width: 600px;">
+      <%= @contact_form_message.message %>
+    </p>
+  </body>
+</html>

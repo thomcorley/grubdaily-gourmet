@@ -1,0 +1,40 @@
+title: Test Recipe
+total_time: PT20M
+serves: 3
+makes:
+type: soup
+category: soup
+tags: soup, tasty, carrots
+summary: Just a small thing, no big deal
+
+introduction: This is a test over multiple lines.This is a test over multiple lines.This is a test over multiple lines.This is a test over multiple lines.This is a test over multiple lines.This is a test over multiple lines.This is a test over multiple lines.This is a test over multiple lines.
+
+ingredient_set_title:
+entry: 2 large carrots
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+
+ingredient_set_title:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:
+entry:

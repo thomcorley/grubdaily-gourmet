@@ -1,0 +1,46 @@
+# Logfile created on 2025-05-15 16:16:58 +0100 by logger.rb/v1.7.0
+  INFO ---------------------------------------------------------------------------
+  INFO START 2025-05-15 16:16:58 +0100 cap staging setup:initial
+  INFO ---------------------------------------------------------------------------
+ DEBUG [6c079a9c] Running [ -d $HOME/.rbenv/versions/3.4.3 ] as deploy@159.65.27.57
+ DEBUG [6c079a9c] Command: [ -d $HOME/.rbenv/versions/3.4.3 ]
+  INFO ---------------------------------------------------------------------------
+  INFO START 2025-05-15 16:19:20 +0100 cap staging setup:initial
+  INFO ---------------------------------------------------------------------------
+ DEBUG [f1ac351a] Running [ -d $HOME/.rbenv/versions/3.4.3 ] as deploy@159.65.27.57
+ DEBUG [f1ac351a] Command: [ -d $HOME/.rbenv/versions/3.4.3 ]
+  INFO ---------------------------------------------------------------------------
+  INFO START 2025-05-15 16:20:44 +0100 cap staging setup:initial
+  INFO ---------------------------------------------------------------------------
+ DEBUG [0abd4c68] Running [ -d $HOME/.rbenv/versions/3.4.3 ] as deploy@159.65.27.57
+ DEBUG [0abd4c68] Command: [ -d $HOME/.rbenv/versions/3.4.3 ]
+ DEBUG [0abd4c68] Finished in 7.053 seconds with exit status 1 (failed).
+  WARN rbenv: 3.4.3 is not installed or not found in $HOME/.rbenv/versions/3.4.3 on 159.65.27.57
+  INFO ---------------------------------------------------------------------------
+  INFO START 2025-05-15 16:21:53 +0100 cap staging setup:initial
+  INFO ---------------------------------------------------------------------------
+ DEBUG [5908d5ee] Running [ -d $HOME/.rbenv/versions/3.4.3 ] as deploy@159.65.27.57
+ DEBUG [5908d5ee] Command: [ -d $HOME/.rbenv/versions/3.4.3 ]
+ DEBUG [5908d5ee] Finished in 6.147 seconds with exit status 1 (failed).
+  WARN rbenv: 3.4.3 is not installed or not found in $HOME/.rbenv/versions/3.4.3 on 159.65.27.57
+  INFO ---------------------------------------------------------------------------
+  INFO START 2025-05-15 16:22:51 +0100 cap staging setup:initial
+  INFO ---------------------------------------------------------------------------
+ DEBUG [c53f1d37] Running [ -d $HOME/.rbenv/versions/3.4.3 ] as deploy@159.65.27.57
+ DEBUG [c53f1d37] Command: [ -d $HOME/.rbenv/versions/3.4.3 ]
+ DEBUG [c53f1d37] Finished in 7.733 seconds with exit status 1 (failed).
+  WARN rbenv: 3.4.3 is not installed or not found in $HOME/.rbenv/versions/3.4.3 on 159.65.27.57
+  INFO ---------------------------------------------------------------------------
+  INFO START 2025-05-15 16:23:48 +0100 cap staging setup:initial
+  INFO ---------------------------------------------------------------------------
+ DEBUG [4c04aba2] Running [ -d $HOME/.rbenv/versions/3.4.3 ] as deploy@159.65.27.57
+ DEBUG [4c04aba2] Command: [ -d $HOME/.rbenv/versions/3.4.3 ]
+ DEBUG [4c04aba2] Finished in 6.125 seconds with exit status 1 (failed).
+  WARN rbenv: 3.4.3 is not installed or not found in $HOME/.rbenv/versions/3.4.3 on 159.65.27.57
+  INFO ---------------------------------------------------------------------------
+  INFO START 2025-05-15 16:24:21 +0100 cap staging ruby:install
+  INFO ---------------------------------------------------------------------------
+ DEBUG [6849f657] Running [ -d $HOME/.rbenv/versions/3.4.3 ] as deploy@159.65.27.57
+ DEBUG [6849f657] Command: [ -d $HOME/.rbenv/versions/3.4.3 ]
+ DEBUG [6849f657] Finished in 8.174 seconds with exit status 1 (failed).
+  WARN rbenv: 3.4.3 is not installed or not found in $HOME/.rbenv/versions/3.4.3 on 159.65.27.57

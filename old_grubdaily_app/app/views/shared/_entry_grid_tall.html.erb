@@ -1,0 +1,18 @@
+<% title ||= nil %>
+<% truncate = true unless truncate == false  %>
+
+<div class="container wider-container">
+  <div class="entry-grid-tall">
+    <% if title %>
+      <div class="section-title has-text-centered">
+        <h2 class="is-size-3"><%= title %></h2>
+      </div>
+
+      </br>
+    <% end %>
+
+    <div class="columns is-multiline is-mobile px-2">
+      <%= render "shared/entry_list", entries: entries, truncate: truncate %>
+    </div>
+  </div>
+</div>

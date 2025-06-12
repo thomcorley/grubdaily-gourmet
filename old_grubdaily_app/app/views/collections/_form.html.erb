@@ -1,0 +1,65 @@
+<% content_for :head do %>
+  <meta name="robots" content="noindex">
+
+  <script type="module">
+    import { Application } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
+    import AdminEntriesAutocompleteController from "/javascript/controllers/admin_entries_autocomplete_controller.js";
+
+    window.Stimulus = Application.start();
+    AdminEntriesAutocompleteController.init();
+  </script>
+<% end %>
+
+<div class="page-content block">
+  <%= form_with(model: collection, data: {turbo: false}) do |form| %>
+    <% if collection.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+
+        <ul>
+          <% collection.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :title, class: "label" %>
+      <div class="control">
+        <%= form.text_field :title, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :introduction, class: "label" %>
+      <div class="control">
+        <%= form.text_area :introduction, class: "textarea" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :published_at, class: "label" %>
+      <div class="control">
+        <%= form.date_field :published_at, class: "input" %>
+      </div>
+    </div>
+
+    <%= render "shared/entry_autocomplete_form_field", form: form, entries: @entries %>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class: "button is-success" %>
+      </div>
+
+      <div class="control">
+        <%= link_to(
+          "Back",
+          collection,
+          class: "button",
+          data: { turbo_frame: "_top" },
+        )%>
+      </div>
+    </div>
+  <% end %>
+</div>

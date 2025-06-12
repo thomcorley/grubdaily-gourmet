@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ingredient Entries</h1>
+
+<h2>DI PROGRESS: <%= @entries_updated %> out of <%= @ingredient_entries.count %> entries successfully fixed</h2>
+
+<h4>5 most recently updated Ingredient Entries:</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Original String</th>
+      <th>Generated String</th>
+      <th>Edit</th>
+      <th>Destroy</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recently_updated_ingredient_entries.each do |ingredient_entry| %>
+      <tr>
+        <td><%= ingredient_entry.original_string %></td>
+        <td><%= link_to "#{ingredient_entry.human_readable_entry}", touch_ingredient_entry_path(ingredient_entry), title: "click to verify correct" %></td>
+        <td><%= link_to 'Edit', edit_ingredient_entry_path(ingredient_entry) %></td>
+        <td><%= link_to 'Destroy', ingredient_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h4>Older Entries:</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Original String</th>
+      <th>Generated String</th>
+      <th>Edit</th>
+      <th>Destroy</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @old_ingredient_entries.each do |ingredient_entry| %>
+      <tr>
+        <td><%= ingredient_entry.original_string %></td>
+        <td><%= link_to "#{ingredient_entry.human_readable_entry}", touch_ingredient_entry_path(ingredient_entry), title: "click to verify correct" %></td>
+        <td><%= link_to 'Edit', edit_ingredient_entry_path(ingredient_entry) %></td>
+        <td><%= link_to 'Destroy', ingredient_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ingredient Entry', new_ingredient_entry_path %>

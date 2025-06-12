@@ -1,0 +1,9 @@
+<%= @blog_post.content_sections.first.delete_suffix(".") %>
+https://www.grubdaily.com/posts<%= @blog_post.permalink %>
+
+Happy reading, happy eating :)
+
+Tom
+
+PS. If you're not interested in these email updates, you can unsubscribe here:
+<%= delete_email_subscriber_url(id: @email_subscriber.id) %>

@@ -1,0 +1,43 @@
+title: Curried Parsnip Soup
+total_time: PT1H
+serves: 4
+makes:
+type: soup
+category: soup
+tags: soup, curry, parsnip
+summary: This soup is the perfect defence against the bitter coldness of midwinter
+
+introduction:
+  - "This soup is the perfect defence against the bitter coldness of midwinter, it'll both warm you up and warm the
+     cockles of your heart. There's just a hint of spice to provide a little heat, but feel free ramp it up by
+     adding more chillies. This recipe is based on a classic recipe by Marguerite Patten, an old school cook and
+     one of the first celebrity chefs."
+  - "The soup starts with a _soffrito_ – onions and garlic cooked softly and gently for about 10 minutes. This
+     gives a platform of sweetness for the rest of the ingredients to stand upon. It pays to fry the parsnips
+     along with the spices in foaming butter at a high temperature before adding any liquid. This will generate
+     some essential caramelisation which adds depth of flavour."
+
+first_ingredient_set:
+  INSERT_TITLE:
+    - 300 g parsnips, peeled
+    - 1 medium onion
+    - 3 cloves garlic
+    - 50 g unsalted butter
+    - 1 tbsp curry powder
+    - 1 fresh red chilli, chopped
+    - 900 ml vegetable stock (or chicken stock)
+    - 150 g potatoes
+    - 2 tbsp dessicated coconut
+    - 4 tbsp natural yoghurt
+    - sea salt and freshly cracked black pepper
+    - 4 pinches paprika (optional)
+    - 4 dashes of tabasco sauce (optional)
+
+method_steps:
+  - "Step 1"
+  - "Step 2"
+  - "Step 3"
+  - "Step 4"
+  - "Step 5"
+
+

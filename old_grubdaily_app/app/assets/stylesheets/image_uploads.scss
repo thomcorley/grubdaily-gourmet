@@ -1,0 +1,19 @@
+@import "vars";
+@import "bulma";
+
+.image-upload-page.section.white-section {
+  padding-top: 2rem;
+
+  @include mobile {
+    padding-top: 0.5rem;
+  }
+
+  h1, h2 {
+    font: 800 12px $header-font, sans-serif;
+    color: $grubdaily-grey;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+}

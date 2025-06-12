@@ -1,0 +1,35 @@
+<% content_for :head do %>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@700&display=swap" rel="stylesheet">
+  <% title(@collection.title) %>
+  <% meta_tag :description, "#{@collection.title}: a collection of favourite recipes, carefully curated" %>
+<% end %>
+
+<section class="collection">
+  <main role="main">
+    <article class="post single" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <div class="page-title">
+          <h1 class="post-title has-text-centered" itemprop="name headline"><%= @collection.title %></h1>
+        </div>
+      </header>
+
+      <section class="white-section has-text-justified">
+        <div class="container">
+          <div class="first-paragraph">
+            <%= simple_format(@introduction_paragraphs.first) %>
+          </div>
+
+          <% @introduction_paragraphs.drop(1).each do |paragraph| %>
+            <%= simple_format(paragraph, class: "py-3") %>
+          <% end %>
+        </div>
+      </section>
+
+      <section class="white-section">
+      <% if @entries.present? %>
+        <%= render "shared/entry_grid_tall", entries: @entries, truncate: false %>
+      <% end %>
+      </section>
+    </article>
+  </main>
+</section>

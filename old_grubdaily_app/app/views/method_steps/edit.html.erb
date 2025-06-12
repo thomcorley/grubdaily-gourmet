@@ -1,0 +1,15 @@
+<turbo-frame id="recipe" target="_top">
+  <div class="section">
+    <div class="container is-widescreen">
+      <%= render "form", method_step: @method_step %>
+      <div class="control">
+        <%= button_to "Delete",
+          recipe_method_step_path(@recipe.id, @method_step.id),
+          method: :delete,
+          class: "button is-danger",
+          data: { confirm: "Really?", disable_with: "deleting..." }
+        %>
+      </div>
+    </div>
+  </div>
+</turbo-frame>

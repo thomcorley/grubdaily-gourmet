@@ -1,0 +1,48 @@
+<%
+  selected ||= false
+
+  list_class = if selected
+    "input list-group-item selected"
+  else
+    "input list-group-item"
+  end
+
+  target = if selected
+    ""
+  else
+    "entry"
+  end
+
+  action = if selected
+    ""
+  else
+    "click->admin-entries-autocomplete#selectEntry"
+  end
+%>
+
+<li
+  class="<%= list_class %>"
+  role="option"
+  data-admin-entries-autocomplete-value=""
+  data-entry-id="<%= entry.id %>"
+  data-admin-entries-autocomplete-target="<%= target %>"
+  data-action="<%= action %>"
+>
+  <div class="image-container">
+    <%= render "shared/image",
+      image: entry.image,
+      entry: entry,
+      version: Image::TINY_SQUARE,
+      remove_on_error: true
+    %>
+  </div>
+
+  <h3><%= entry.title %></h3>
+
+  <img
+    data-action="click->admin-entries-autocomplete#removeEntry"
+    class="xmark"
+    src="<%= asset_path('xmark-solid-grey.svg') %>"
+    width="10px"
+  >
+</li>

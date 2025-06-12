@@ -1,0 +1,108 @@
+@import "vars";
+
+.recipe-page.section.white-section {
+  padding-top: 2rem;
+
+  @include mobile {
+    padding-top: 0.5rem;
+  }
+}
+
+.post.single {
+  .post-title {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .post-content {
+    .recipe-section-title {
+      margin-bottom: 0.5rem;
+    }
+
+    .recipe-ingredients {
+      padding: 0;
+      clear: both;
+      overflow: hidden;
+      position: relative;
+      margin: 10px 0 10px 0;
+      list-style: none;
+      font-size: 18px;
+      background-size: 100% 31px;
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+
+      &:before {
+        position: absolute;
+        content: "";
+        width: 4px;
+        height: 100%;
+        top: 0;
+        left: 30px;
+      }
+
+      li {
+        position: relative;
+        min-width: 50%;
+        line-height: 23.6px;
+        font-weight: 400;
+        color: $grey-color-dark;
+
+        span {
+          a {
+            color: $green-colour;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .ingredient-set-title {
+      margin: 30px 0 0 0;
+      color: $grubdaily-grey;
+      font: 600 28px $header-font, sans-serif
+    }
+
+    .method-steps {
+      margin-top: 30px;
+
+      p {
+        margin: 0
+      }
+
+      .method-steps-title {
+        margin: 0;
+        color: $grubdaily-grey;
+        font: 600 28px $header-font, sans-serif
+      }
+
+      li {
+        margin-bottom: 30px;
+      }
+    }
+
+    .icon {
+      font-size: 12px;
+    }
+
+    .edit-recipe-button {
+      a {
+        text-decoration: none;
+        color: $recipe-text-color
+      }
+    }
+  }
+}
+
+.recipe-nutrition {
+  width: 80%;
+
+  @include mobile {
+    width: 100%;
+  }
+
+  .nutrition-attribution {
+    opacity: 0.8;
+    font-size: 0.7rem;
+  }
+}

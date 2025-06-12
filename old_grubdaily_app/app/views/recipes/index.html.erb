@@ -1,0 +1,41 @@
+<section class="section">
+  <article class="page single" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+  <p id="notice"><%= notice %></p>
+
+    <header class="post-header">
+      <h2 class="post-title" itemprop="name headline">Recipes</h2>
+      <p><%= @recipes.count %> recipes. Showing the least recently updated first.</p>
+      <%= link_to "New Recipe", new_recipe_path, class: "button is-small is-success" %>
+    </header>
+
+    </br>
+
+    <div class="post-content" itemprop="text">
+      <div class="index-list">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th></th>
+              <th>Published at</th>
+              <th>Updated at</th>
+              <th>Promoted at</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @recipes.each do |recipe| %>
+              <tr>
+                <td><%= link_to recipe.title, recipe_path(recipe) %></td>
+                <td><%= link_to 'edit', edit_recipe_path(recipe) %></td>
+                <td><%= time_ago(recipe.published_at) %></td>
+                <td><%= time_ago(recipe.updated_at) %></td>
+                <td><%= time_ago(recipe.marked_for_promotion_at) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </article>
+</section>

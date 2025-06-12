@@ -1,0 +1,105 @@
+<% content_for :head do %>
+  <% title("#{@blog_post.title} – Blog Post") %>
+  <% meta_tag :description, @blog_post.summary.html_safe %>
+
+  <script type="application/ld+json"><%= blog_post_json_schema %></script>
+  <meta property="og:title" content="<%= @blog_post.title %>"/>
+  <meta property="og:image" content="<%= blog_post_image %>"/>
+  <meta property="og:description" content="<%= @blog_post.summary %>"/>
+  <meta property="og:url" content="<%= "https://www.grubdaily.com#{@blog_post.permalink}" %>"/>
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="627" />
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@700&display=swap" rel="stylesheet">
+<% end %>
+
+<% flash.each do |key, value| %>
+  <%= content_tag :div, value, class: "flash #{key}" %>
+<% end %>
+
+<% content_for(:body_container_additional_class, "blog-post") %>
+
+<section class="section is-small white-section blog-post-page">
+  <div class="container">
+    <article class="post single" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+      <div class="header-image is-flex is-justify-content-center">
+        <p>
+          <%= render "shared/image",
+            image: @blog_post.image,
+            entry: @blog_post,
+            version: Image::MAIN,
+            loading: "eager"
+          %>
+        </p>
+      </div>
+
+      <header class="post-header">
+        <div class="entry-type">
+          <%= @blog_post.class.to_s.tableize.humanize.singularize.upcase %>
+        </div>
+
+        <h1 class="post-title" itemprop="name headline"><%= @blog_post.title %></h1>
+        <div class="post-meta clear">
+          <time datetime="<%= @blog_post.created_at.to_datetime %>" itemprop="datePublished">
+            <%= @blog_post.display_date.strftime("%-d %b %Y") %>
+          </time>
+
+          <% if admin_session? %>
+            <% if @blog_post.published? %>
+              <p class="has-text-centered published-tag">Published</p>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="post-meta clear">
+          <span class="tags">
+            <% @tags.each do |tag| %>
+              <span><b><%= link_to(tag.name, tag_path(tag_name: tag.name.downcase)) %></b></span>
+            <% end %>
+          </span>
+        </div>
+      </header>
+
+       <div class="post-content" itemprop="text">
+        <div class="first-paragraph">
+          <%= formatted_section(@blog_post.content_sections.first) %>
+        </div>
+
+        <%= formatted_section(@blog_post.content_sections.second) %>
+
+        <% if @blog_post.second_image %>
+          <div class="image-with-caption">
+            <%= render "shared/image",
+              image: @blog_post.second_image,
+              entry: @blog_post,
+              version: Image::MAIN,
+              caption: @blog_post.second_image.caption
+            %>
+          </div>
+        <% end %>
+
+
+        <% if @blog_post.content_sections.third %>
+          <%= formatted_section(@blog_post.content_sections.third) %>
+        <% end %>
+
+        <% if @blog_post.third_image %>
+          <%= render "shared/image",
+            image: @blog_post.third_image,
+            entry: @blog_post,
+            version: Image::MAIN,
+            caption: @blog_post.third_image.caption
+          %>
+        <% end %>
+
+        <% if @blog_post.content_sections.fourth %>
+          <%= formatted_section(@blog_post.content_sections.fourth) %>
+        <% end %>
+      </div>
+    </article>
+  </div>
+</section>
+
+<% if @other_blog_posts.size >= 3 %>
+  <section class="section grey-section">
+    <%= render "shared/entry_grid_tall", entries: @other_blog_posts, title: 'More Blog Posts' %>
+  </section>
+<% end %>

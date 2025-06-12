@@ -1,0 +1,61 @@
+<% content_for :head do %>
+  <% title 'About' %>
+  <% meta_tag :description, "Grubdaily is for tasty things. Here you can find delicious things to cook, to eat and give you good feels. This is my manifesto: I am for tasty things and I will always prioritise flavour above all else." %>
+<% end %>
+
+<section class="delicious">
+  <section class="section pt-0">
+    <main role="main">
+      <article class="page single" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="page-title has-text-centered">
+          <h1 class="is-size-2">About Grubdaily</h1>
+        </div>
+
+        <div class="post-content" itemprop="text">
+          <%= simple_format(
+            MarkdownConverter.convert(
+            "Like most humans I eat food every day of my life, so why shouldn't I eat well? I can't think of a single good reason why not! It's a known fact that when you eat, \"feel good\" endorphins are released into your brain, so it logically follows that eating  _especially tasty_ food will make you feel _especially good_."
+            )
+          ) %>
+
+          <%= simple_format(
+            MarkdownConverter.convert(
+            "Food has always been a central part of my life. Having grown up on a farm, I was raised on wholesome meals made from our own home-grown produce and organic lamb. Years later I worked as a professional chef but it was at home on the farm that I developed a passion for food, respect for ingredients and of course, learnt how to cook."
+            )
+          ) %>
+
+          <figure class="container image">
+            <%= image_tag("home-cooking.jpg", width: "400px") %>
+            <figcaption>Cooking for my folks in the farmhouse kitchen.</figcaption>
+          </figure>
+
+          <%= simple_format(
+            MarkdownConverter.convert(
+            "Grubdaily is for tasty things. Here you can find delicious things to cook, to eat and give you good feels. In addition to being a catchy tag line though, \"for tasty things\" is my manifesto: I am _for_ tasty things and I will always prioritise flavour above all else."
+            )
+          ) %>
+
+          <%= simple_format(
+            MarkdownConverter.convert(
+            "Personally it's not just the eating part that gets me feeling great, I also love the process of cooking (or more generally, the process of preparing food). In my mind, cooking and eating are two parts of the same thing. The purpose of cooking or preparing a piece of food is to make it more delicious  before you eat it, and this process is inextricably tied to the sense of taste. Cooking should involve continuously tasting the food to ensure that what you're creating is as delicious as it can be."
+            )
+          ) %>
+
+          <figure class="container">
+              <%= image_tag("kitchen-staff-meal.jpg", width: "800px") %>
+              <figcaption>By the back door of The Kitchin eating staff dinner. I'm second from the left, shovelling food into my mouth :D</figcaption>
+          </figure>
+
+          <%= simple_format(
+            MarkdownConverter.convert(
+            "I spent 7 years working in some of Scotland's finest restaurants, finally reaching the position of sous chef at [The Kitchin](https://thekitchin.com/). I've now left the world of restaurants, but my love of food has not diminished; I actually enjoy cooking more, now, outside of the professional kitchen environment. I started grubdaily.com in 2010, just before the start of my chef career and have developed it over the years into what is now an invaluable repository of food content. I hope you enjoy."
+            )
+          ) %>
+
+          <p>Happy cooking, and happy eating!</p>
+          <p>grubdaily x</p>
+        </div>
+      </article>
+    </main>
+  </section>
+</section>

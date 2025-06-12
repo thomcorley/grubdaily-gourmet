@@ -1,0 +1,41 @@
+<section class="section">
+  <article class="page single" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+    <p id="notice"><%= notice %></p>
+
+    <header class="post-header">
+      <h3 class="is-size-3 post-title" itemprop="name headline">Ingredients</h3>
+      <p><%= @ingredients.count %> ingredients.</p>
+      <%= link_to "New Ingredient", new_ingredient_path, class: "button is-small is-success" %>
+    </header>
+
+    </br>
+
+    <div class="post-content" itemprop="text">
+      <div class="index-list">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th></th>
+              <th>Has image?</th>
+              <th>Publishable?</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @ingredients.each do |ingredient| %>
+              <tr>
+                <td><%= link_to ingredient.name, ingredient_path(ingredient) %></td>
+                <td><%= link_to 'edit', edit_ingredient_path(ingredient) %></td>
+                <td><%= ingredient.image.attached? %></td>
+                <td><%= ingredient.publishable %></td>
+                <td><%= time_ago(ingredient.created_at) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </article>
+</section>

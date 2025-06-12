@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ingredient Sets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ingredient_sets.each do |ingredient_set| %>
+      <tr>
+        <td><%= ingredient_set.title %></td>
+        <td><%= ingredient_set.position %></td>
+        <td><%= link_to 'Show', ingredient_set %></td>
+        <td><%= link_to 'Edit', edit_ingredient_set_path(ingredient_set) %></td>
+        <td><%= link_to 'Destroy', ingredient_set, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ingredient Set', new_ingredient_set_path %>

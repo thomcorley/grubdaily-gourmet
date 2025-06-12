@@ -1,0 +1,20 @@
+@import "vars";
+
+.entry-grid-tall, .entry-list {
+  .image-container {
+    border-radius: 0;
+    padding: 0;
+
+    .entry-title {
+      background-color: white;
+      font: 300 32px $header-font, sans-serif; color: $grubdaily-grey;
+      padding: 10px 5px;
+      min-height: 4rem;
+      max-width: 200px;
+      margin: auto;
+    }
+  }
+  .page-title {
+    margin-bottom: 30px;
+  }
+}

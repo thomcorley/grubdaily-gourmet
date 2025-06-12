@@ -1,0 +1,20 @@
+<% content_for :head do %>
+  <% title("All Recipes") %>
+  <% meta_tag :description, "Browse all grubdaily recipes. Showing the most recently published first." %>
+<% end %>
+
+<section class="delicious">
+  <main role="main">
+    <article class="page single" role="article" itemscope itemtype="http://schema.org/BlogPosting">
+      <section class="white-section">
+        <div class="page-title has-text-centered">
+          <h1 class="is-size-2">Recipes</h1>
+        </div>
+
+        <div class="container wider-container entry-list">
+          <%= render "shared/truncated_recipe_list", recipes: @recipes, page: nil %>
+        </div>
+      </section>
+    </article>
+  </main>
+</section>

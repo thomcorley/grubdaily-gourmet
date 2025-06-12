@@ -1,0 +1,38 @@
+@import "vars";
+@import "mixins";
+@import "bulma";
+
+.subscribe-form {
+  font: 400 20px Lato, sans-serif;
+
+  .section-title.truncated{
+    margin: auto;
+
+    @include mobile {
+      max-width: 300px;
+    }
+
+    @include tablet {
+      max-width: 550px;
+    }
+  }
+
+  form {
+    padding-top: 25px;
+  }
+
+  input {
+    font: 400 20px Lato, sans-serif;
+
+    &.email-field {
+      width: 50vw;
+      min-width: 250px;
+      max-width: 500px;
+    }
+
+    &.submit-button {
+      &:active { background-color: $green-colour; }
+      &:visited { background-color: $grey-color-light; }
+    }
+  }
+}

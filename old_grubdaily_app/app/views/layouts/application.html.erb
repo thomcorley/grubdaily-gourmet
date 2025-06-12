@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta name="seobility" content="b58cca57b449bf63895c2aeb29adc69f">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google tag (gtag.js) -->
+    <% if Rails.env.production? %>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-880P9S3P38"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-880P9S3P38');
+      </script>
+    <% end %>
+
+    <% if content_for?(:title) %>
+      <title><%= yield(:title) + ' | Grubdaily' %></title>
+    <% else %>
+      <title>For tasty things | Grubdaily</title>
+    <% end %>
+
+    <meta name="description" content="<%= yield_meta_tag(:description, 'A food blog showcasing seasonal foraged and wild food, including wild mushrooms, wild herbs and flowers, game birds and more. Recipes, blog posts and photos.') %>" />
+
+    <link rel="canonical" href="<%= "https://www.grubdaily.com#{request.original_fullpath}" %>">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <meta name="p:domain_verify" content="9d9fd8a69b2c412192f82e9042d86909"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="author" content="grubdaily" />
+    <meta name="copyright" content="Copyright by grubdaily. All Rights Reserved." />
+
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/favicon_large.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&display=swap"></noscript>
+
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap"></noscript>
+
+    <link rel="alternate" type="application/rss+xml" title="" href="<%= request.base_url %>/feed.xml">
+    <meta name="google-site-verification" content="e0R7vNdeWQjdxrPKjWHa6CPXCH0bV543YiJqJboKi9M" />
+
+    <script>
+      handleImageLoadError = (entryId, filepath, removeOnError = null) => {
+        if (removeOnError === "true") {
+          const imageContainer = document.querySelector(`.entry-image-source-${entryId}`);
+          imageContainer?.closest(".column")?.remove();
+          imageContainer?.closest("picture")?.remove();
+        } else {
+          [...document.querySelectorAll(`.entry-image-source-${entryId}`)].forEach(el => {
+            el.srcset= filepath;
+          })
+        }
+      }
+    </script>
+
+    <script type="module">
+      import { Application } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js";
+      import { Autocomplete } from 'stimulus-autocomplete'
+      import NavbarController from "/javascript/controllers/navbar_controller.js";
+
+      window.Stimulus = Application.start();
+      Stimulus.register('autocomplete', Autocomplete);
+      NavbarController.init();
+    </script>
+
+    <%= yield :head %>
+  </head>
+
+  <body id="body">
+    <div id="main-container">
+      <!-- Environment banner to warn when in development mode -->
+      <% if !Rails.env.production? %>
+          <div>
+            <h2 id="env-banner">
+              <strong><%= Rails.env %></strong>
+            </h2>
+          </div>
+      <% end %>
+
+      <%= render "home/navbar" %>
+      <div class="main-body-container <%= content_for(:body_container_additional_class) %>">
+        <%= yield %>
+      </div>
+
+    <%= render "home/footer" %>
+
+    </div>
+  </body>
+</html>
