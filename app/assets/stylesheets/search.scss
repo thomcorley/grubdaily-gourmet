@@ -19,7 +19,7 @@
         max-width: 550px;
       }
 
-      @include mixins.mobile {
+      @include mobile {
         &.term-field {
           width: 100%;
           min-width: 250px;

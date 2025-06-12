@@ -16,7 +16,7 @@
   &.garlic-bulbs {
     background-image: url("/images/garlic-bulbs.webp");
 
-    @include mixins.mobile {
+    @include mobile {
       background-position: 4%;
     }
   }
@@ -29,7 +29,7 @@
   &.minestrone {
     background-image: url("/images/winter-minestrone.webp");
 
-    @include mixins.mobile {
+    @include mobile {
       background-position: 60% 40%;
     }
   }

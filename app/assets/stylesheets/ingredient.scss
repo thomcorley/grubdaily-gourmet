@@ -46,7 +46,7 @@
     justify-content: center;
   }
 
-  @include mixins.mobile {
+  @include mobile {
     .nutrition {
       justify-content: center;
       padding-top: 1.5rem;
