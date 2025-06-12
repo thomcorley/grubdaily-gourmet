@@ -55,9 +55,7 @@ module Image
       raise "Size #{size} must be included in IMAGE_VARIANTS list"
     end
 
-    image_method = self.is_a?(BlogPost) ? :attached_images : :image
-
-    if send(image_method).attached?
+    if image_object.attached?
       is_square = size[0] == size[1]
       if is_square
         image_object.variant(

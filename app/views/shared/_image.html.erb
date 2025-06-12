@@ -11,13 +11,18 @@
   else
     "/images/placeholder-square.jpg"
   end
+
+  def resolved_src(entry, image, size)
+    resolved = entry.resolved_image(image, size)
+    resolved.is_a?(String) ? resolved : cdn_image_url(resolved)
+  end
 %>
 
 <picture class="image-container">
   <source
     class="entry-image-source-<%= entry.id %>"
     media="(max-width: 450px)"
-    srcset="<%= cdn_image_url(entry.resolved_image(image, version[0])) %>"
+    srcset="<%= resolved_src(entry, image, version[0]) %>"
     width="<%= version[0][0] %>px"
     height="<%= version[0][1] %>px"
   />
@@ -25,7 +30,7 @@
   <source
     class="entry-image-source-<%= entry.id %>"
     media="(max-width: 600px)"
-    srcset="<%= cdn_image_url(entry.resolved_image(image, version[1])) %>"
+    srcset="<%= resolved_src(entry, image, version[1]) %>"
     width="<%= version[1][0] %>px"
     height="<%= version[1][1] %>px"
   />
@@ -33,13 +38,13 @@
   <source
     class="entry-image-source-<%= entry.id %>"
     media="(min-width: 601px)"
-    srcset="<%= cdn_image_url(entry.resolved_image(image, version[2])) %>"
+    srcset="<%= resolved_src(entry, image, version[2]) %>"
     width="<%= version[2][0] %>px"
     height="<%= version[2][1] %>px"
   />
 
   <%= image_tag(
-    cdn_image_url(entry.resolved_image(image, version[2])),
+    resolved_src(entry, image, version[2]),
     alt: "#{entry.title} image",
     title: title,
     width: "#{version[2][0]}px",

@@ -25,17 +25,15 @@
   <section class="section is-small white-section recipe-page">
       <div class="container">
         <article class="post single" role="article" itemscope itemtype="http://schema.org/BlogPosting">
-          <% if @recipe.image.attached? %>
-            <div class="header-image is-flex is-justify-content-center">
-              <p>
-                <%= render "shared/image",
-                  image: @recipe.image,
-                  version: Image::MAIN,
-                  loading: "eager"
-                %>
-              </p>
-            </div>
-            <% end %>
+          <div class="header-image is-flex is-justify-content-center">
+            <p>
+              <%= render "shared/image",
+                image: @recipe.image,
+                version: Image::MAIN,
+                loading: "eager"
+              %>
+            </p>
+          </div>
 
           <header class="post-header">
             <div class="entry-type">
