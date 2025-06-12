@@ -1,0 +1,21 @@
+---
+title: Test Recipe
+total_time: PT2D
+serves:
+makes: 2 jars
+type: jam
+category: bread
+tags: bacon, comte
+summary: "This is a summary"
+
+introduction:
+  - "An introduction"
+
+first_ingredient_set:
+  INSERT_TITLE:
+    - 415g warm water
+    - 725g strong white flour
+
+method_steps:
+  - "First step"
+  - "Second step"
