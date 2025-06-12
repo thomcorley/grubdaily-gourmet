@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  before_action :initialize_email_subscriber
   before_action do
     ActiveStorage::Current.url_options = { host: Rails.configuration.active_storage.host }
   end
@@ -26,5 +27,11 @@ class ApplicationController < ActionController::Base
 
   def subscriber_count
     EmailSubscriber.confirmed.count
+  end
+
+  private
+
+  def initialize_email_subscriber
+    @email_subscriber = EmailSubscriber.new
   end
 end
