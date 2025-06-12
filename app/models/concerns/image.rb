@@ -63,9 +63,9 @@ module Image
           resize_to_fill: size,
           gravity: "north",
           format: :webp
-        ).processed
+        )
       elsif LANDSCAPE_VARIANTS.include?(size)
-        image_object.variant(resize_to_limit: [size[0], size[1]], format: :webp).processed
+        image_object.variant(resize_to_limit: [size[0], size[1]], format: :webp)
       end
     else
       "/images/placeholder.jpg"

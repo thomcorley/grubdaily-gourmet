@@ -25,6 +25,9 @@ Rails.application.configure do
   config.active_storage.service = :amazon
   config.active_storage.variant_processor = :mini_magick
 
+  # Redirect to variants hosted on S3, rather than proxying.
+  config.active_storage.resolve_model_to_route = :redirect
+
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = true
 
@@ -95,4 +98,5 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   # Mount Action Cable outside main process or domain.
+  config.action_cable.mount_path = nil
 end
