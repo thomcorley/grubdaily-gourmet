@@ -21,7 +21,6 @@ class BlogPost < ApplicationRecord
 
   scope :published_with_image, -> { published.where(has_image: true) }
 
-  after_save_commit :process_image_variants_in_background, if: -> { attached_images.attached? }
   before_save :set_has_image
 
   def self.get(permalink)
@@ -76,10 +75,6 @@ class BlogPost < ApplicationRecord
 
   def url
     "https://www.grubdaily.com#{permalink}"
-  end
-
-  def process_image_variants_in_background
-    ImageProcessingJob.perform_later(self)
   end
 
   def process_image_variants

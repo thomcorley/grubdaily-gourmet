@@ -25,8 +25,8 @@ Rails.application.configure do
   config.active_storage.service = :amazon
   config.active_storage.variant_processor = :mini_magick
 
-  # Redirect to variants hosted on S3, rather than proxying.
-  config.active_storage.resolve_model_to_route = :redirect
+  # Proxy variants through the app server.
+  config.active_storage.resolve_model_to_route = :proxy
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = true

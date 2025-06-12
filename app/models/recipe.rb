@@ -38,7 +38,6 @@ class Recipe < ApplicationRecord
 
   scope :published_with_image, -> { published.where(has_image: true) }
 
-  after_save_commit :process_image_variants_in_background, if: -> { image.attached? }
   before_save :set_has_image
   # before_save :set_nutrition_from_api
 
@@ -96,10 +95,6 @@ class Recipe < ApplicationRecord
 
   def method_steps_array
     method_steps.map(&:description)
-  end
-
-  def process_image_variants_in_background
-    ImageProcessingJob.perform_later(self)
   end
 
   def process_image_variants
