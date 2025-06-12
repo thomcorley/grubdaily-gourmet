@@ -37,7 +37,7 @@ body {
 
   &.recipe,
   &.blog-post {
-    margin-top: 1rem;
+    margin-top: 3.5rem;
   }
 
   &.home-page {
@@ -281,7 +281,6 @@ header {
   .navbar {
     display: flex;
     background-color: $grubdaily-grey;
-    position: relative;
     width: 100%;
     max-width: 100%;
     justify-content: space-between;
