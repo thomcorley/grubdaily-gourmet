@@ -146,6 +146,8 @@ hr {
   height: 15px;
   border: 0;
   margin: 2rem 0;
+  background: transparent;
+  background-color: transparent;
 }
 
 .hashtags {
@@ -1205,3 +1207,37 @@ header {
 }
 
 @import "responsive";
+
+// WebKit/Safari mobile fixes for dark mode issues
+@media only screen and (max-width: 768px) {
+
+  // Force light mode rendering for problematic elements
+  * {
+    -webkit-color-scheme: light;
+    color-scheme: light;
+  }
+
+  // Ensure body maintains white background
+  body {
+    background-color: white !important;
+  }
+
+  div:not([class*="background"]):not([class*="hero"]):not([class*="navbar"]) {
+    background-color: transparent;
+  }
+
+  section.white-section {
+    background-color: white !important;
+  }
+
+  section.grey-section {
+    background-color: $grey-color-lightest !important;
+  }
+
+  // Ensure hr elements are transparent on mobile
+  hr {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
+}
