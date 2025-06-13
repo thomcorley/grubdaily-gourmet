@@ -16,7 +16,7 @@ class Recipe < ApplicationRecord
   has_one_attached :image
   belongs_to :collection, optional: true
 
-  delegate :tags, :tag_names, :tags=, :content, to: :entry, allow_nil: true
+  delegate :tags, :tag_names, :tags=, :content, :summary, to: :entry, allow_nil: true
 
   validates :title, presence: true, uniqueness: true
   validates :title, length: { maximum: 50 }

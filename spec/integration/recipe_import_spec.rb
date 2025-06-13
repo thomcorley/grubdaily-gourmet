@@ -22,13 +22,17 @@ RSpec.describe "Importing a Recipe from a YAML file" do
       makes_unit:  "pancakes",
       recipe_type: "brunch",
       category: "pancakes",
-      summary: "This is my _favourite_ pancakes recipe in the world",
     }
 
     expected_recipe_attributes.each do |key, value|
       it "has the correct #{key}" do
         expect(recipe_attributes[key]).to eq(value)
       end
+    end
+
+    # Test summary separately since it's delegated to entry
+    it "has the correct summary" do
+      expect(recipe.summary).to eq("This is my _favourite_ pancakes recipe in the world")
     end
 
     it "has the correct tags" do

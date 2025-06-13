@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Grubdaily Gourmet" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Google tag (gtag.js) -->
+    <% if false %>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-880P9S3P38"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-880P9S3P38');
+      </script>
+    <% end %>
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -10,11 +20,37 @@
 
     <%= yield :head %>
 
+    <% if content_for?(:title) %>
+      <title><%= yield(:title) + ' | Grubdaily' %></title>
+    <% else %>
+      <title>For tasty things | Grubdaily</title>
+    <% end %>
+
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <meta name="p:domain_verify" content="9d9fd8a69b2c412192f82e9042d86909"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="author" content="grubdaily" />
+    <meta name="copyright" content="Copyright by grubdaily. All Rights Reserved." />
+
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/favicon_large.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&display=swap"></noscript>
+
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap"></noscript>
+
+    <link rel="alternate" type="application/rss+xml" title="" href="<%= request.base_url %>/feed.xml">
+    <meta name="google-site-verification" content="e0R7vNdeWQjdxrPKjWHa6CPXCH0bV543YiJqJboKi9M" />
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>

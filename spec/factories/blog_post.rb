@@ -53,7 +53,7 @@ FactoryBot.define do
       entry = build(:entry,
         title: blog_post.title,
         summary: "A very special post about something very dear to my heart",
-        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry./n/n --- Lorem Ipsum has been the industry",
+        content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n\n --- Lorem Ipsum has been the industry",
         published_at: blog_post.published_at
       )
       entry.entryable = blog_post

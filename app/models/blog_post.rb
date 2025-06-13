@@ -11,7 +11,7 @@ class BlogPost < ApplicationRecord
   validates :title, length: { maximum: 50 }
   validate :content_section_delimiter
 
-  delegate :tags, :tag_names, :tags=, to: :entry, allow_nil: true
+  delegate :tags, :tag_names, :tags=, :content, :summary, to: :entry, allow_nil: true
 
   scope :published, -> { where.not(published_at: nil) }
 

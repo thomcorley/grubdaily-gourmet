@@ -28,6 +28,7 @@ class RecipeImporter
 			category: content_hash[:category],
 			tags: content_hash[:tags],
 			summary: content_hash[:summary],
+			introduction: content_hash[:introduction].join("\n"),
 			content: content_hash[:introduction].join("\n"),
 			ingredient_sets: ingredient_sets,
 			method_steps: content_hash[:method_steps],

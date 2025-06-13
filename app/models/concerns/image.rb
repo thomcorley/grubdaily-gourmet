@@ -55,7 +55,16 @@ module Image
       raise "Size #{size} must be included in IMAGE_VARIANTS list"
     end
 
-    if image_object.attached?
+    # Handle nil, ActiveStorage::Attachment objects, and associations
+    is_attached = if image_object.nil?
+      false
+    elsif image_object.is_a?(ActiveStorage::Attachment)
+      image_object.present?
+    else
+      image_object.attached?
+    end
+
+    if is_attached
       is_square = size[0] == size[1]
       if is_square
         image_object.variant(

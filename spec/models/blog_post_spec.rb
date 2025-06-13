@@ -24,7 +24,7 @@ RSpec.describe BlogPost do
 
   describe "content_sections" do
     let(:content) { "Lorem Ipsum\r\n---\r\nis simply dummy text\r\n---\r\nof the printing\r\n---\r\nindustry" }
-    before { blog_post.content = content }
+    before { blog_post.entry.update!(content: content) }
 
     it "returns the sections delimited by '---'" do
       sections = ["Lorem Ipsum\r\n", "\r\nis simply dummy text\r\n", "\r\nof the printing\r\n", "\r\nindustry" ]
