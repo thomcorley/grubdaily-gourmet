@@ -1222,6 +1222,54 @@ header {
     background-color: white !important;
   }
 
+  // Fix input fields specifically
+  input,
+  .input {
+    background-color: white !important;
+    color: $grey-color-dark !important;
+    border-color: $grey-color-lighter !important;
+
+    &::placeholder {
+      color: $grey-color-normal !important;
+    }
+
+    &:focus,
+    &:active {
+      background-color: white !important;
+      border-color: $green-colour !important;
+    }
+
+    // Fix WebKit autofill dark backgrounds
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
+      -webkit-text-fill-color: $grey-color-dark !important;
+      background-color: white !important;
+    }
+  }
+
+  // Fix textarea fields
+  textarea,
+  .textarea {
+    background-color: white !important;
+    color: $grey-color-dark !important;
+    border-color: $grey-color-lighter !important;
+
+    &::placeholder {
+      color: $grey-color-normal !important;
+    }
+  }
+
+  // Fix select fields
+  select,
+  .select select {
+    background-color: white !important;
+    color: $grey-color-dark !important;
+    border-color: $grey-color-lighter !important;
+  }
+
   div:not([class*="background"]):not([class*="hero"]):not([class*="navbar"]) {
     background-color: transparent;
   }
@@ -1239,5 +1287,33 @@ header {
     background: transparent !important;
     background-color: transparent !important;
     border: none !important;
+  }
+
+  // Specific fixes for footer subscribe form
+  .footer {
+
+    input,
+    .input {
+      background-color: white !important;
+      color: $grey-color-dark !important;
+      border: 1px solid $grey-color-lighter !important;
+
+      &::placeholder {
+        color: $grey-color-normal !important;
+      }
+
+      &:focus,
+      &:active {
+        background-color: white !important;
+        border-color: $green-colour !important;
+        box-shadow: 0 0 0 0.125em rgba($green-colour, 0.25) !important;
+      }
+    }
+
+    .button {
+      background-color: $green-colour !important;
+      color: white !important;
+      border-color: $green-colour !important;
+    }
   }
 }
