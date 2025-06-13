@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :recipe_without_entry, class: Recipe do
-    title { "Berber Omelette" }
+    sequence(:title) { |n| "Berber Omelette #{n}" }
     total_time { "PT6H" }
     serves { 2 }
     makes { nil }
@@ -24,7 +24,7 @@ FactoryBot.define do
   end
 
   factory :recipe, class: Recipe do
-    title { "Berber Omelette" }
+    sequence(:title) { |n| "Berber Omelette #{n}" }
     total_time { "PT6H" }
     serves { 2 }
     makes { nil }
